@@ -5,6 +5,7 @@
         <h1>E</h1>
         <h3>xtracurricular</h3>
       </section>
+      
     </header>
     <div id="nav">
       <router-link to="/">Log-In</router-link> |
