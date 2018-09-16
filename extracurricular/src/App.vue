@@ -7,19 +7,25 @@
           <h1>E</h1>
           <h3>xtracurricular</h3>
         </section>
-        <img src='./assets/white_triple_bar2.png' alt='logo'/>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle"
+            type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+              <img src='./assets/white_triple_bar2.png' alt='logo'/>
+          </button>
+          <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
+            <router-link to="/" class="dropdown-item">Log-In</router-link>
+            <router-link to="/home" class="dropdown-item">Home</router-link>
+          </div>
+        </div>
       </section>
       <hr>
-   
-      
+
     </header>
-    <div id="nav">
-      <router-link to="/">Log-In</router-link> |
-      <router-link to="/home">Home</router-link>
-    </div>
+
     <router-view/>
     <footer class="footer">
-
+      <p>Created by Michael Solone</p>
     </footer>
   </div>
 </template>
@@ -52,7 +58,7 @@ html {
 .header {
   background: #103072;
   color: white;
-  height: 15%;
+  height: 12%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,26 +66,54 @@ html {
 .header_inner {
   display: flex;
   align-items: center;
-  padding-left: 2em;
   justify-content: space-between;
 }
 .header h1 {
-  font-size: 4em;
+  font-size: 2em;
 }
 .header h3 {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .logo {
   display: flex;
   align-items: center;
+  padding-left: 1em;
+  padding-top: 0.5em;
 }
 
 .header img {
-  height: 4em;
-  width: 4em;
-  padding-right: 2em;
+  height: 1.5em;
+  width: 2em;
 }
 
+.dropdown {
+  padding-right: 1em;
+  background: #103072;
+}
+
+.btn-secondary {
+  color: #fff;
+  background: #103072;
+  border-color: #103072;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #103072;
+  border-color: #545b62;
+}
+.show>.btn-secondary.dropdown-toggle {
+  background: #103072
+}
+.dropdown-toggle::after {
+  content: none;
+}
+
+.dropdown-menu-header {
+  width: 6em;
+  margin: 0.125rem -1.5em;
+  min-width: 3em;
+} 
 #nav {
   padding: 30px;
 }
@@ -94,9 +128,11 @@ html {
 }
 .footer {
   background: #103072;
+  color: white;
+  font-size: 1em;
   height: 7.5%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 </style>
