@@ -16,6 +16,7 @@
           <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
             <router-link to="/" class="dropdown-item">Log-In</router-link>
             <router-link to="/home" class="dropdown-item">Home</router-link>
+            <router-link to="/home/take_attendance" class="dropdown-item">Take Attendance</router-link>
           </div>
         </div>
       </section>
@@ -29,6 +30,13 @@
     </footer>
   </div>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
+
 
 <style>
 * {

@@ -5,17 +5,20 @@
         <button class="btn btn-secondary dropdown-toggle"
         type="button" id="dropdownMenu1" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        My Teams
+        <!-- Need to get this to update dynamical based on actual teams -->
+        {{ team_name }}
         </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <h5 class="dropdown-item">Varsity</h5>
-        <h5 class="dropdown-item">Junior Varsity</h5>
-        <h5 class="dropdown-item">Freshmen</h5>
+        <h5 class="dropdown-item" v-on:click="updateVarsityTeamName">Varsity</h5>
+        <h5 class="dropdown-item" v-on:click="updateJVTeamName">Junior Varsity</h5>
+        <h5 class="dropdown-item" v-on:click="updateFreshmenTeamName">Freshmen</h5>
       </div>
       </div>
     </section>
     <section class="attendance-buttons">
-      <button class="attendance-button">Take Attendance</button>
+      <router-link to='/home/take_attendance'>
+        <button class="attendance-button">Take Attendance</button>
+      </router-link>
       <button class="attendance-button">Attendance History</button>
     </section>
     <section class="search-by-name">
@@ -24,10 +27,10 @@
     </section>
     <section class="adding-section">
       <section class="add-team">
-        <h5>Add Team</h5><button><h5>+</h5></button>
+        <h5>Add Team</h5><button><h4>+</h4></button>
       </section>
       <section class="add-player">
-        <h5>Add Player</h5><button><h5>+</h5></button>
+        <h5>Add Player</h5><button><h4>+</h4></button>
       </section>
     </section>
   </div>
@@ -35,7 +38,23 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data: function() {
+    return {
+      team_name: 'My Teams'
+    }
+  },
+  methods: {
+    updateVarsityTeamName: function() {
+      this.team_name = 'Varsity'
+    },
+    updateJVTeamName: function() {
+      this.team_name = 'Junior Varsity'
+    },
+    updateFreshmenTeamName: function() {
+      this.team_name = 'Freshmen'
+    }
+  }
 };
 </script>
 
@@ -88,6 +107,10 @@ input {
   display: flex;
   justify-content: space-around;
 }
+h5 {
+  padding-top: 0.5em;
+  color: #103072;
+}
 .adding-section button {
   height: 2.5em;
   width: 2.5em;
@@ -95,9 +118,10 @@ input {
   margin: 0.5em;
   padding: 0.2em;
 }
-.adding-section button h5 {
+.adding-section button h4 {
   text-align: center;
   font-weight: bold;
+  
 }
 .add-team {
   display: flex;

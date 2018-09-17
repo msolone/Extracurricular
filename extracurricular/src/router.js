@@ -15,5 +15,10 @@ export default new Router({
       name: 'Home',
       component: () => import('./views/Home.vue'),
     },
+    {
+      path: '/home/take_attendance',
+      name: 'TakeAttendance',
+      component: () => import('./views/TakeAttendance.vue'),
+    },
   ],
 });
