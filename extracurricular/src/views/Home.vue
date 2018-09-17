@@ -66,6 +66,8 @@ export default {
   justify-content: space-around;
   border: 3px solid #103072;
   border-radius: 0.5em;
+  
+  
 }
 button {
   border: 3px solid #103072;

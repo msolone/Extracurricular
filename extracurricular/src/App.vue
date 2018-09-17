@@ -33,7 +33,12 @@
 
 <script>
 export default {
-  
+  data: function() {
+    return {
+      footerOff: false
+    }
+  },
+
 }
 </script>
 
@@ -70,6 +75,9 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* position: fixed;
+  top: 0;
+  width: 100%; */
 }
 .header_inner {
   display: flex;
@@ -135,12 +143,19 @@ html {
   color: #42b983;
 }
 .footer {
+  /* position: fixed;
+  bottom: 0; */
   background: #103072;
   color: white;
   font-size: 1em;
   height: 7.5%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.footer_off {
+  display: none;
 }
 </style>
