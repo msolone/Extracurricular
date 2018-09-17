@@ -3,10 +3,12 @@
     <header class="header">
       <hr>
       <section class="header_inner">
-        <section class="logo">
-          <h1>E</h1>
-          <h3>xtracurricular</h3>
-        </section>
+        
+          <router-link class="logo" to="/home">
+            <h1>E</h1>
+            <h3>xtracurricular</h3>
+          </router-link>
+        
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle"
             type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -16,7 +18,7 @@
           <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
             <router-link to="/" class="dropdown-item">Log-In</router-link>
             <router-link to="/home" class="dropdown-item">Home</router-link>
-            <router-link to="/home/take_attendance" class="dropdown-item">Take Attendance</router-link>
+            <router-link to="/home/take_attendance" class="dropdown-item">Attendance</router-link>
           </div>
         </div>
       </section>
@@ -95,6 +97,8 @@ html {
   align-items: center;
   padding-left: 1em;
   padding-top: 0.5em;
+  color: white;
+  
 }
 
 .header img {
@@ -126,8 +130,8 @@ html {
 }
 
 .dropdown-menu-header {
-  width: 6em;
-  margin: 0.125rem -1.5em;
+  width: 7.5em;
+  margin: 0.125rem -3em;
   min-width: 3em;
 } 
 #nav {
