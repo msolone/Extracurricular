@@ -1,0 +1,214 @@
+{
+    "attendance": [
+        {
+            "first_name": "John",
+            "last_name": "Doe",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "absent"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe2",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe3",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe4",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe5",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe6",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "absent"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe7",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe8",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe9",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe10",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "absent"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe11",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe12",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe13",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe14",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe15",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe16",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe17",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "absent"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe18",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe19",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe20",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "tardy"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe21",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe22",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe23",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "tardy"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe24",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe25",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "absent"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe26",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe27",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe28",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe29",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "present"
+        },
+        {
+            "first_name": "John",
+            "last_name": "Doe30",
+            "team": "Varsity",
+            "date": "01/01/2018",
+            "status": "tardy"
+        }
+    ]
+}

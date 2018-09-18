@@ -19,6 +19,7 @@
             <router-link to="/" class="dropdown-item">Log-In</router-link>
             <router-link to="/home" class="dropdown-item">Home</router-link>
             <router-link to="/home/take_attendance" class="dropdown-item">Attendance</router-link>
+            <router-link to="/home/team_attendance_history" class="dropdown-item">History</router-link>
           </div>
         </div>
       </section>
@@ -38,10 +39,9 @@ export default {
   data: function() {
     return {
       footerOff: false
-    }
-  },
-
-}
+    };
+  }
+};
 </script>
 
 
@@ -98,7 +98,6 @@ html {
   padding-left: 1em;
   padding-top: 0.5em;
   color: white;
-  
 }
 
 .header img {
@@ -122,8 +121,8 @@ html {
   background-color: #103072;
   border-color: #545b62;
 }
-.show>.btn-secondary.dropdown-toggle {
-  background: #103072
+.show > .btn-secondary.dropdown-toggle {
+  background: #103072;
 }
 .dropdown-toggle::after {
   content: none;
@@ -133,7 +132,7 @@ html {
   width: 7.5em;
   margin: 0.125rem -3em;
   min-width: 3em;
-} 
+}
 #nav {
   padding: 30px;
 }

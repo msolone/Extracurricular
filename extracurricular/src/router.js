@@ -20,5 +20,10 @@ export default new Router({
       name: 'TakeAttendance',
       component: () => import('./views/TakeAttendance.vue'),
     },
+    {
+      path: '/home/team_attendance_history/',
+      name: 'TeamAttendanceHistory',
+      component: () => import('./views/TeamAttendanceHistory.vue'),
+    }
   ],
 });

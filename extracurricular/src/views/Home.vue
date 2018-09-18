@@ -19,7 +19,9 @@
       <router-link to='/home/take_attendance'>
         <button class="attendance-button">Take Attendance</button>
       </router-link>
-      <button class="attendance-button">Attendance History</button>
+      <router-link to='/home/team_attendance_history'>
+        <button class="attendance-button">Attendance History</button>
+      </router-link>
     </section>
     <section class="search-by-name">
       <input type="text" placeholder="  Search by Name..." />
@@ -137,7 +139,7 @@ h5 {
 
 .adding-section-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   padding: 0 0.5em
@@ -155,7 +157,7 @@ h5 {
 
 .adding-section-bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   padding: 0 0.5em;
