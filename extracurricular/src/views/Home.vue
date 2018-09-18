@@ -29,8 +29,13 @@
       <section class="add-team">
         <h5>Add Team</h5><button><h4>+</h4></button>
       </section>
+      <section class="adding-section-bottom">
       <section class="add-player">
         <h5>Add Player</h5><button><h4>+</h4></button>
+      </section>
+      <section class="remove-player">
+        <h5>Remove Player</h5><button><h4>+</h4></button>
+      </section>
       </section>
     </section>
   </div>
@@ -107,7 +112,9 @@ input {
 }
 .adding-section {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 h5 {
   padding-top: 0.5em;
@@ -129,7 +136,17 @@ h5 {
   display: flex;
   align-items: center;
 }
+
+.adding-section-bottom {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1.5em;
+}
 .add-player {
+  display: flex;
+  align-items: center;
+}
+.remove-player {
   display: flex;
   align-items: center;
 }
