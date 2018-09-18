@@ -26,9 +26,14 @@
       <button>GO!</button>
     </section>
     <section class="adding-section">
+    <section class="adding-section-top">
       <section class="add-team">
         <h5>Add Team</h5><button><h4>+</h4></button>
       </section>
+      <section class="remove-team">
+        <h5>Remove Team</h5><button><h4>+</h4></button>
+      </section>
+    </section>
       <section class="adding-section-bottom">
       <section class="add-player">
         <h5>Add Player</h5><button><h4>+</h4></button>
@@ -46,18 +51,18 @@ export default {
   name: "Home",
   data: function() {
     return {
-      team_name: 'My Teams'
-    }
+      team_name: "My Teams"
+    };
   },
   methods: {
     updateVarsityTeamName: function() {
-      this.team_name = 'Varsity'
+      this.team_name = "Varsity";
     },
     updateJVTeamName: function() {
-      this.team_name = 'Junior Varsity'
+      this.team_name = "Junior Varsity";
     },
     updateFreshmenTeamName: function() {
-      this.team_name = 'Freshmen'
+      this.team_name = "Freshmen";
     }
   }
 };
@@ -71,8 +76,6 @@ export default {
   justify-content: space-around;
   border: 3px solid #103072;
   border-radius: 0.5em;
-  
-  
 }
 button {
   border: 3px solid #103072;
@@ -86,13 +89,13 @@ button {
 
 .dropdown {
   background: none;
-  padding-right: 0
+  padding-right: 0;
 }
 .dropdown button {
   padding: 0 2em;
 }
-.btn-secondary.dropdown-toggle{
-  background: #103072
+.btn-secondary.dropdown-toggle {
+  background: #103072;
 }
 .dropdown-toggle::after {
   content: "";
@@ -100,7 +103,7 @@ button {
 .attendance-buttons {
   display: flex;
   justify-content: space-around;
-  margin-top: 5em
+  margin-top: 5em;
 }
 input {
   border: 1px solid #545b62;
@@ -130,16 +133,32 @@ h5 {
 .adding-section button h4 {
   text-align: center;
   font-weight: bold;
-  
+}
+
+.adding-section-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.5em
+
 }
 .add-team {
   display: flex;
   align-items: center;
 }
 
+.remove-team {
+  display: flex;
+  align-items: center;
+}
+
 .adding-section-bottom {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.5em;
   padding-top: 1.5em;
 }
 .add-player {
