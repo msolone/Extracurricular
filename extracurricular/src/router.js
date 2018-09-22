@@ -24,6 +24,11 @@ export default new Router({
       path: '/home/team_attendance_history/',
       name: 'TeamAttendanceHistory',
       component: () => import('./views/TeamAttendanceHistory.vue'),
+    },
+    {
+      path: '/home/player_attendance_history/',
+      name: 'PlayerAttendanceHistory',
+      component: () => import('./views/PlayerAttendanceHistory.vue'),
     }
   ],
 });
