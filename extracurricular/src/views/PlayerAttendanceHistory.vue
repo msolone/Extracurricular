@@ -8,7 +8,6 @@
         <section class="player_info">   
             <section class="player_name">{{PlayerHistory.team.players[0].first_name}} {{PlayerHistory.team.players[0].last_name}}  </section>
             <section class="player_team"> Team: {{PlayerHistory.team.team_name}}</section>
-            <section class="player_grade">Grade: {{PlayerHistory.team.players[0].grade}}</section>
         </section>
         <form>
             <input type="radio" name="player_history_range" checked/>Last Week
@@ -55,7 +54,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .player_history_page {
     overflow: scroll;
     height: 100%;

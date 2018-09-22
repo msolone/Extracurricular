@@ -47,7 +47,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .team_attendance_history_page {
     width: 100%;
     height: 80%;

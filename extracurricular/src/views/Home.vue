@@ -29,20 +29,20 @@
     </section>
     <section class="adding-section">
     <section class="adding-section-top">
-      <section class="add-team">
-        <h5>Add Team</h5><button><h4>+</h4></button>
-      </section>
-      <section class="remove-team">
+      <router-link class="add-team" to="/home/add_team">
+        <h5>Add Team</h5><button ><h4>+</h4></button>
+      </router-link>
+      <router-link class="remove-team" to="/home/remove_team">
         <h5>Remove Team</h5><button><h4>+</h4></button>
-      </section>
+      </router-link>
     </section>
       <section class="adding-section-bottom">
-      <section class="add-player">
+      <router-link class="add-player" to="/home/add_player">
         <h5>Add Player</h5><button><h4>+</h4></button>
-      </section>
-      <section class="remove-player">
+      </router-link>
+      <router-link class="remove-player" to="/home/remove_player">
         <h5>Remove Player</h5><button><h4>+</h4></button>
-      </section>
+      </router-link>
       </section>
     </section>
   </div>

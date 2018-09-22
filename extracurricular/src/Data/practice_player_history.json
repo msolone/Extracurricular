@@ -4,7 +4,6 @@
     {
       "first_name": "John",
       "last_name": "Doe",
-      "grade": "12",
       "attendance": [
         {
           "date": "01/01",
