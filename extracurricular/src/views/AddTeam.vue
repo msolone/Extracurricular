@@ -4,8 +4,8 @@
             Create a New Team
         </section>
         <form  class="add_team_form" action="">
-        <input class="add_team_input" type="text" name="team_name" placeholder="Enter Team Name Here..." />
-        <button class="add_team_button" type="submit">Submit</button> 
+            <input class="add_team_input" type="text" name="team_name" placeholder="Enter Team Name Here..." />
+            <button class="add_team_button" type="submit">Submit</button> 
         </form>
     </section>
     
@@ -44,7 +44,6 @@ export default {
     height: 2em;
 }
 .add_team_input[placeholder] {
-    color: yellow;
     text-align: center;
 }
 
