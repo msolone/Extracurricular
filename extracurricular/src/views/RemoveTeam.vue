@@ -24,14 +24,14 @@
         </p>
         <section class="warning_checkbox">
             <section>
-                <input class="warning_checkbox_input" type="checkbox" name="agreed_to_delete" value="yes">
+                <input class="warning_checkbox_input" type="checkbox" name="agreed_to_delete" value="yes" v-on:change="unlockSubmit">
             </section>
             <section>
                 <p class="warning_checkbox_text"> I understand this is permanent </p>
             </section>
         </section>
     
-        <button class="remove_team_button" type="submit">Remove</button>
+        <button class="remove_team_button" type="submit" :disabled="isDisabled" >Remove</button>
 
     </section>
 </template>
@@ -41,7 +41,8 @@ export default {
     name: "RemoveTeam",
         data: function() {
     return {
-      team_name: "Select Team"
+      team_name: "Select Team",
+      isDisabled: true
     };
   },
   methods: {
@@ -53,6 +54,9 @@ export default {
     },
     updateFreshmenTeamName: function() {
       this.team_name = "Freshmen";
+    },
+    unlockSubmit: function() {
+        this.isDisabled = false;
     }
   }
 

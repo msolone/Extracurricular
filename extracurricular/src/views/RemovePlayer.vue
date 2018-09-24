@@ -32,19 +32,19 @@
         <p class="warning_text">
             Warning this is a permanent deletion, 
             you will no longer be able to access any 
-            information about this team once you click 
+            information about this player once you click 
             the remove button
         </p>
         <section class="warning_checkbox">
             <section>
-                <input class="warning_checkbox_input" type="checkbox" name="agreed_to_delete" value="yes">
+                <input class="warning_checkbox_input" type="checkbox" name="agreed_to_delete" value="yes" v-on:change="unlockSubmit">
             </section>
             <section>
                 <p class="warning_checkbox_text"> I understand this is permanent </p>
             </section>
         </section>
     
-        <button class="remove_player_button" type="submit">Remove</button>
+        <button class="remove_player_button" type="submit" :disabled="isDisabled" >Remove</button>
 
     </form>
 </template>
@@ -55,9 +55,14 @@ export default {
         data: function() {
     return {
       team_name: "Select Team",
-      player_name: "Select Player"
+      player_name: "Select Player",
+      isDisabled: true
+
     };
   },
+//   mounted: {
+//        isDisabled = true
+//   },
   methods: {
     updateVarsityTeamName: function() {
       this.team_name = "Varsity";
@@ -76,6 +81,9 @@ export default {
     },
     updatePlayer3Name: function() {
       this.player_name = "John Doe III";
+    },
+    unlockSubmit: function() {
+        this.isDisabled = false;
     }
   }
 
