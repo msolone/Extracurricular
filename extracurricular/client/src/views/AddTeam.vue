@@ -4,16 +4,37 @@
             Create a New Team
         </section>
         <form  class="add_team_form" action="">
-            <input class="add_team_input" type="text" name="team_name" placeholder="Enter Team Name Here..." />
-            <button class="add_team_button" type="submit">Submit</button> 
+            <input class="add_team_input" type="text" name="team_name" placeholder="Enter Team Name Here..." v-model="teamName"/>
+            <button class="add_team_button" type="submit" v-on:click.prevent="submitTeam">Submit</button> 
         </form>
     </section>
-    
 </template>
 
 <script>
 export default {
-    name: "AddTeam"
+    name: "AddTeam",
+    data: function() {
+        return {
+            teamName: ''
+        }
+    },
+    methods: {
+        submitTeam: function() {
+            fetch("https://localhost:5001/api/Teams", {
+                method: "POST",
+                body: JSON.stringify({
+                    name: this.teamName 
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then( resp => resp.json())
+            .then( TeamData => {
+                console.log(TeamData)
+            }) 
+        }
+   }
 
 }
 </script>
