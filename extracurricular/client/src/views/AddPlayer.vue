@@ -10,17 +10,17 @@
             <!-- Need to get this to update dynamical based on actual teams -->
             {{ team_name }}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <h5 class="dropdown-item" v-on:click="updateVarsityTeamName">Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateJVTeamName">Junior Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateFreshmenTeamName">Freshmen</h5>
-            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li class="dropdown-item" v-on:click="updateTeamName(team)" v-for="team in TeamsArray" v-bind:key="team.id">
+                  {{team.name}}
+                </li>
+            </ul>
       </div>
       
         <form class="add_player_form" action="">
-            <input class="add_player_input" type="text" name="first_name" placeholder="First Name" />
-            <input class="add_player_input" type="text" name="last_name" placeholder="Last Name" />
-            <button class="add_player_button" type="submit">Submit</button>
+            <input class="add_player_input" type="text" name="first_name" placeholder="First Name" v-model="firstName"/>
+            <input class="add_player_input" type="text" name="last_name" placeholder="Last Name" v-model="lastName"/>
+            <button class="add_player_button" type="submit" v-on:click="submitPlayer" >Submit</button>
         </form>
 
     </section>
@@ -29,20 +29,50 @@
 <script>
 export default {
   name: "AddPlayer",
-    data: function() {
+  data: function() {
     return {
-      team_name: "Select Team"
+      team_name: "Select Team",
+      TeamsArray: [],
+      currentTeamId: 0,
+      firstName: '',
+      lastName: '' 
     };
   },
+  mounted: function() {
+    fetch("https://localhost:5001/api/Teams")
+    .then(resp => resp.json())
+    .then(TeamData => {
+      this.TeamsArray = TeamData
+    })
+
+  },
   methods: {
-    updateVarsityTeamName: function() {
-      this.team_name = "Varsity";
+    updateTeamName: function(team) {
+      this.currentTeamId = team.id
+      this.team_name = team.name
     },
     updateJVTeamName: function() {
       this.team_name = "Junior Varsity";
     },
     updateFreshmenTeamName: function() {
       this.team_name = "Freshmen";
+    },
+    submitPlayer: function() {
+      fetch("https://localhost:5001/api/Players", {
+        method: "POST",
+        body: JSON.stringify({
+          FirstName: this.firstName,
+          LastName: this.lastName,
+          TeamId: this.currentTeamId
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(resp => resp.json())
+        .then(PlayerData => {
+          console.log(PlayerData);
+        });
     }
   }
 };
