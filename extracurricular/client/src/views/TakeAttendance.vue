@@ -18,11 +18,11 @@
             </tr>
          
             <form name="attendance" >
-                <tr v-for="(player, i) in TeamData" v-bind:key="i">
+                <tr v-for="(player) in TeamData" v-bind:key="player.id">
                     <td class="player_name">{{player.firstName + " " + player.lastName}}</td>
-                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="present" checked></td>
-                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="absent"></td>
-                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="tardy"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="present" checked></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="absent"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="tardy"></td>
                 </tr>
             </form>
         
