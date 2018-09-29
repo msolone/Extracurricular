@@ -5,7 +5,6 @@
         <button class="btn btn-secondary dropdown-toggle"
         type="button" id="dropdownMenu1" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <!-- Need to get this to update dynamical based on actual teams -->
         {{ team_name }}
         </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >

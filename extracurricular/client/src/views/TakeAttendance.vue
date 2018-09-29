@@ -17,14 +17,14 @@
                 <th>TAR</th>
             </tr>
          
-            <tr v-for="(player, i) in TeamData" v-bind:key="i">
-                <form>
+            <form name="attendance" >
+                <tr v-for="(player, i) in TeamData" v-bind:key="i">
                     <td class="player_name">{{player.firstName + " " + player.lastName}}</td>
-                    <td><input class="attendance_radio" type="radio" name="daily_attendance" value="present" checked></td>
-                    <td><input class="attendance_radio" type="radio" name="daily_attendance" value="absent"></td>
-                    <td><input class="attendance_radio" type="radio" name="daily_attendance" value="tardy"></td>
-                </form>
-            </tr>
+                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="present" checked></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="absent"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${i}`" value="tardy"></td>
+                </tr>
+            </form>
         
         </tbody>
     </table>
@@ -42,12 +42,12 @@ export default {
   },
   mounted: function() {
     console.log(this.TeamData);
-    console.log(this.$route.params.TeamId)
+    console.log(this.$route.params.TeamId);
     fetch(`https://localhost:5001/api/players/${this.$route.params.TeamId}`)
       .then(resp => resp.json())
       .then(Data => {
         console.log(Data);
-        this.TeamData = Data
+        this.TeamData = Data;
       });
   }
 };
@@ -90,7 +90,7 @@ td {
 
 form {
   width: 100%;
-  display: flex;
+ 
 }
 th {
   width: 15%;
