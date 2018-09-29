@@ -8,15 +8,15 @@
         <!-- Need to get this to update dynamical based on actual teams -->
         {{ team_name }}
         </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <h5 class="dropdown-item" v-on:click="updateVarsityTeamName">Varsity</h5>
-        <h5 class="dropdown-item" v-on:click="updateJVTeamName">Junior Varsity</h5>
-        <h5 class="dropdown-item" v-on:click="updateFreshmenTeamName">Freshmen</h5>
-      </div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+        <li class="dropdown-item" v-for="team in TeamsArray" v-bind:key="team.id" v-on:click="updateTeamName(team)" >
+          {{team.name}}
+          </li>
+      </ul>
       </div>
     </section>
     <section class="attendance-buttons">
-      <router-link to='/home/take_attendance'>
+      <router-link :to="`/home/take_attendance/${currentTeamId}`">
         <button class="attendance-button">Take Attendance</button>
       </router-link>
       <router-link to='/home/team_attendance_history'>
@@ -53,18 +53,22 @@ export default {
   name: "Home",
   data: function() {
     return {
-      team_name: "My Teams"
+      team_name: "My Teams",
+      TeamsArray: [],
+      currentTeamId: 0,
     };
   },
+  mounted: function() {
+    fetch("https://localhost:5001/api/Teams")
+    .then(resp => resp.json())
+    .then(TeamData => {
+      this.TeamsArray = TeamData
+  })
+  },
   methods: {
-    updateVarsityTeamName: function() {
-      this.team_name = "Varsity";
-    },
-    updateJVTeamName: function() {
-      this.team_name = "Junior Varsity";
-    },
-    updateFreshmenTeamName: function() {
-      this.team_name = "Freshmen";
+    updateTeamName: function(team) {
+      this.currentTeamId = team.id
+      this.team_name = team.name
     }
   }
 };

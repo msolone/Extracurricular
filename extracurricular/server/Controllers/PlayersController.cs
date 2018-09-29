@@ -19,10 +19,11 @@ namespace server.Controllers {
         // api/players 
 
         // Pulls all data from the Players Table
-        [HttpGet]
-        public ActionResult<IEnumerable<Player>> Get () 
+        [HttpGet("{id}")]
+        public IEnumerable<Player> Get (int id) 
         {
-            return this.db.Players;
+            var players = this.db.Players.Where(w => w.TeamId == id);
+            return players;
         }
 
         // Post data to the Players Table

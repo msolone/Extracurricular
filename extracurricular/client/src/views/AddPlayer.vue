@@ -51,12 +51,6 @@ export default {
       this.currentTeamId = team.id
       this.team_name = team.name
     },
-    updateJVTeamName: function() {
-      this.team_name = "Junior Varsity";
-    },
-    updateFreshmenTeamName: function() {
-      this.team_name = "Freshmen";
-    },
     submitPlayer: function() {
       fetch("https://localhost:5001/api/Players", {
         method: "POST",

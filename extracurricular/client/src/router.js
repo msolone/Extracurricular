@@ -16,7 +16,7 @@ export default new Router({
       component: () => import('./views/Home.vue'),
     },
     {
-      path: '/home/take_attendance',
+      path: '/home/take_attendance/:TeamId',
       name: 'TakeAttendance',
       component: () => import('./views/TakeAttendance.vue'),
     },
