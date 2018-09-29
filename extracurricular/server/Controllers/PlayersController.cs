@@ -38,6 +38,23 @@ namespace server.Controllers {
         }
 
         // Update Data in Players Table
+        [HttpPatch("{id}")]
+        public Player Patch([FromBody] Player _player, int id)
+        {
+            // Find the Player in the Database with matching id
+            var player = this.db.Players.FirstOrDefault(a => a.Id == id);
+            // Change First Name
+            player.FirstName = _player.FirstName;
+            // Change Last Name
+            player.LastName = _player.LastName;
+            // Saves Changes to DB
+            this.db.SaveChanges();
+            // Returns the New Question
+            return player;
+
+        } // END HttpPatch
+
+
 
         // Delete Data in Players Table
    

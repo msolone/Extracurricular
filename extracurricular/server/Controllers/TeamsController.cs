@@ -35,6 +35,19 @@ namespace server.Controllers {
         }
 
         // Update Data in Teams Table
+        [HttpPatch("{id}")]
+        public Team Patch([FromBody] Team _Team, int id)
+        {
+            // Find the Player in the Database with matching id
+            var team = this.db.Teams.FirstOrDefault(a => a.Id == id);
+            // Change Team Name
+            team.Name = _Team.Name;
+            // Saves Changes to DB
+            this.db.SaveChanges();
+            // Returns the New Question
+            return team;
+
+        } // END HttpPatch
 
         // Delete Data in Teams Table
    
