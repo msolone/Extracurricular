@@ -1,34 +1,34 @@
 <template>
 <section class="take_attendance_page">
-    <section class="attendance_entry_buttons">
-        <button>Change Team</button>
-        <section class="print_save">
-            <button>Print</button>
-            <button>Save</button>
+    <form name="attendance" >
+        <section class="attendance_entry_buttons">
+            <button>Change Team</button>
+            <section class="print_save">
+                <button>Print</button>
+                <input type="submit" value="Save"/>
+            </section>
         </section>
-    </section>
 
-    <table class="take_attendance_table">
-        <tbody>
-            <tr>
-                <th class="player_name">NAME</th>
-                <th>PRE</th>
-                <th>ABS</th>
-                <th>TAR</th>
-            </tr>
+     <table class="take_attendance_table">
+            <tbody>
+                <tr>
+                    <th class="player_name">NAME</th>
+                    <th>PRE</th>
+                    <th>ABS</th>
+                    <th>TAR</th>
+                </tr>
          
-            <form name="attendance" >
                 <tr v-for="(player) in TeamData" v-bind:key="player.id">
                     <td class="player_name">{{player.firstName + " " + player.lastName}}</td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="present" checked></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="absent"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="tardy"></td>
                 </tr>
-            </form>
         
-        </tbody>
-    </table>
+            </tbody>
+     </table>
 
+    </form>
 </section>
 </template>
 
@@ -64,7 +64,7 @@ export default {
   justify-content: space-between;
   margin: 0.3em;
 }
-.attendance_entry_buttons button {
+.attendance_entry_buttons button, input {
   padding: 0.2em 1em;
   background: #e0e0e0;
   margin: 0 0.2em;
@@ -90,7 +90,6 @@ td {
 
 form {
   width: 100%;
- 
 }
 th {
   width: 15%;
