@@ -18,11 +18,11 @@
                     <th>TAR</th>
                 </tr>
          
-                <tr v-for="(player) in TeamData" v-bind:key="player.id">
+                <tr v-for="(player) in TeamData" v-bind:key="player.playerId">
                     <td class="player_name">{{player.firstName + " " + player.lastName}}</td>
-                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="present" checked></td>
-                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="absent"></td>
-                    <td><input class="attendance_radio" type="radio" :name="`${player.id}`" value="tardy"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="present"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="absent"></td>
+                    <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="tardy"></td>
                 </tr>
         
             </tbody>
@@ -37,8 +37,7 @@ export default {
   name: "TakeAttendance",
   data: function() {
     return {
-      TeamData: [],
-      Picked: ''
+      TeamData: []
     };
   },
   mounted: function() {
@@ -48,15 +47,31 @@ export default {
       .then(resp => resp.json())
       .then(Data => {
         console.log(Data);
-        this.TeamData = Data;
+        this.TeamData = Data.map(player => {
+          player.status = "present";
+          player.playerId = player.id;
+          player.id = 0;
+          return player;
+        });
       });
   },
   methods: {
-      submitAttendance: function() {
-          console.log("this works")
-      }
-
-      
+    submitAttendance: function() {
+      console.log("this works");
+      console.log(this.TeamData);
+      fetch(`https://localhost:5001/api/attendance`, {
+        method: "POST",
+        headers:{
+          "Content-type":"application/json"
+        },
+        body:JSON.stringify(this.TeamData)
+      })
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log({Data});
+         
+        });
+    }
   }
 };
 </script>
@@ -72,7 +87,8 @@ export default {
   justify-content: space-between;
   margin: 0.3em;
 }
-.attendance_entry_buttons button, input {
+.attendance_entry_buttons button,
+input {
   padding: 0.2em 1em;
   background: #e0e0e0;
   margin: 0 0.2em;

@@ -33,16 +33,14 @@ namespace server.Controllers {
             return playerAttendance;
         }
 
-        // Post data to the Attendance Table
-        [HttpPost]
-        public Attendance Post([FromBody] Attendance status)
+         [HttpPost]
+        public ActionResult Post([FromBody] IEnumerable<Attendance> teamData)
         {
-        
-            this.db.Attendance.Add(status);
+            this.db.Attendance.AddRange(teamData);
+    
             this.db.SaveChanges();
-            // //var rv = this.db.Players.Include(i => i.Team).FirstOrDefault(p => p.Id == PlayerName.Id);
-            // this.db.Entry(PlayerName).Reference(p => p.Team).Load();
-            return status;
+
+            return Ok(teamData);
         }
 
         [HttpDelete("{id}")]
