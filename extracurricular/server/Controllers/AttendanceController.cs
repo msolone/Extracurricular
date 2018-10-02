@@ -33,7 +33,9 @@ namespace server.Controllers {
             return playerAttendance;
         }
 
-         [HttpPost]
+
+
+        [HttpPost]
         public ActionResult Post([FromBody] IEnumerable<Attendance> teamData)
         {
             this.db.Attendance.AddRange(teamData);

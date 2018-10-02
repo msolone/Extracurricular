@@ -26,6 +26,14 @@ namespace server.Controllers {
             return players;
         }
 
+        // Get Data on One Player based on ID
+        [HttpGet("player/{id}")]
+        public IEnumerable<Player> GetPlayer (int id) 
+        {
+            var player = this.db.Players.Where(w => w.Id == id);
+            return player;
+        }
+
         // Post data to the Players Table
         [HttpPost]
         public Player Post([FromBody] Player PlayerName)

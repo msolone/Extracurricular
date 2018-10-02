@@ -37,7 +37,8 @@ export default {
   name: "TakeAttendance",
   data: function() {
     return {
-      TeamData: []
+      TeamData: [],
+      currentTeamId: this.$route.params.TeamId
     };
   },
   mounted: function() {
