@@ -25,6 +25,14 @@ namespace server.Controllers {
             return this.db.Attendance;
         }
 
+        // Pulls all Attendance Data on a specific player
+        [HttpGet("{id}")]
+        public IEnumerable<Attendance> GetPlayerAttendance(int id)
+        {
+            var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id);
+            return playerAttendance;
+        }
+
         // Post data to the Attendance Table
         [HttpPost]
         public Attendance Post([FromBody] Attendance status)
@@ -35,6 +43,15 @@ namespace server.Controllers {
             // //var rv = this.db.Players.Include(i => i.Team).FirstOrDefault(p => p.Id == PlayerName.Id);
             // this.db.Entry(PlayerName).Reference(p => p.Team).Load();
             return status;
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var deletedPlayer = this.db.Attendance.FirstOrDefault(w => w.Id == id);
+            this.db.Attendance.Remove(deletedPlayer);
+            this.db.SaveChanges();
+            return Ok(new { success = true }); 
         }
     }
 }

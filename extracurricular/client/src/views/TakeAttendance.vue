@@ -5,7 +5,7 @@
             <button>Change Team</button>
             <section class="print_save">
                 <button>Print</button>
-                <input type="submit" value="Save"/>
+                <input type="submit" value="Save" v-on:click.prevent="submitAttendance"/>
             </section>
         </section>
 
@@ -37,7 +37,8 @@ export default {
   name: "TakeAttendance",
   data: function() {
     return {
-      TeamData: []
+      TeamData: [],
+      Picked: ''
     };
   },
   mounted: function() {
@@ -49,6 +50,13 @@ export default {
         console.log(Data);
         this.TeamData = Data;
       });
+  },
+  methods: {
+      submitAttendance: function() {
+          console.log("this works")
+      }
+
+      
   }
 };
 </script>
