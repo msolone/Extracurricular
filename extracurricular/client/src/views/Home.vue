@@ -23,8 +23,8 @@
       </router-link>
     </section>
     <section class="search-by-name">
-      <input type="text" placeholder="  Search by Name..." />
-      <button>GO!</button>
+      <input type="text" placeholder="  Search by Name..." v-bind="searchName" />
+      <router-link class="search-button" to="/home/player_attendance_history/1">GO!</router-link>
     </section>
     <section class="adding-section">
     <section class="adding-section-top">
@@ -117,6 +117,15 @@ input {
 .search-by-name {
   display: flex;
   justify-content: center;
+}
+.search-button {
+  border: 3px solid #103072;
+  color: white;
+  font-weight: bold;
+  background: #103072;
+  height: 2.5em;
+  border-radius: 0.2em;
+  padding: 0.4em 0.8em;
 }
 .adding-section {
   display: flex;
