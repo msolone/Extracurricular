@@ -6,14 +6,14 @@
             <input class="player_search_input" type="text" name="search_player_name" v-on:focus="unhidden" placeholder="  search by name..." v-model="searchName">
             <button v-on:click="searchForPlayer">Search</button>
           </section>
-          <section> 
-            <section v-bind:class="{search_list: true, hidden: hasPlayerId}" v-for="(player) in searchResults" v-bind:key="player.id"  v-on:click="updateCurrentPlayerId(player)">{{player.firstName}} {{player.lastName}}</section>
+          <section v-bind:class="{search_list_container: true,  hidden: hasPlayerId}"> 
+            <section v-bind:class="{search_list: true}" v-for="(player) in searchResults" v-bind:key="player.id"  v-on:click="updateCurrentPlayerId(player)">{{player.firstName}} {{player.lastName}}</section>
           </section>
         </section>
-        <form>
-            <input type="radio" name="player_history_range" checked/>Last Week
-            <input type="radio" name="player_history_range"/>Last Month
-            <input type="radio" name="player_history_range"/>All Time
+        <form v-bind:class="{hidden: !hasPlayerId}">
+            <input type="radio" name="player_history_range" v-on:click="changeTimeFrame(7)" checked/>Last Week
+            <input type="radio" name="player_history_range" v-on:click="changeTimeFrame(30)" />Last Month
+            <input type="radio" name="player_history_range" v-on:click="changeTimeFrame(365)" />All Time
         </form>
         </section>
         
@@ -21,9 +21,11 @@
         <section class="player_info">   
             <section class="player_name">{{PlayerData.firstName}} {{PlayerData.lastName}}  </section>
         </section>
-        <section class="calendar_entry"  v-for="(date, i) in PlayerAttendance" v-bind:key="i">
+        <section class="calendar_display">
+          <section class="calendar_entry"  v-for="(date, i) in PlayerAttendance" v-bind:key="i">
             <section class="calendar_date">{{formatDate(date.date)}}</section>
-            <section class="calendar_status">{{date.status}}</section>
+            <section class="calendar_status">{{renderStatus(date.status)}}</section>
+         </section>
         </section>
     </section> 
     </section>
@@ -40,7 +42,10 @@ export default {
       CurrentPlayerId: 0,
       searchName: "",
       searchResults: [],
-      hasPlayerId: false
+      hasPlayerId: false,
+      TimeFrame: moment()
+        .subtract(7, "days")
+        .calendar()
     };
   },
   methods: {
@@ -58,12 +63,17 @@ export default {
     updateCurrentPlayerId: function(player) {
       this.CurrentPlayerId = player.id;
       this.hasPlayerId = true;
+
       fetch(`https://localhost:5001/api/players/player/${this.CurrentPlayerId}`)
         .then(resp => resp.json())
         .then(Data => {
           this.PlayerData = Data[0];
         });
-      fetch(`https://localhost:5001/api/attendance/${this.CurrentPlayerId}`)
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.CurrentPlayerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
         .then(resp => resp.json())
         .then(Data => {
           console.log(Data);
@@ -71,7 +81,75 @@ export default {
         });
     },
     unhidden: function() {
-        this.hasPlayerId = false;
+      this.hasPlayerId = false;
+    },
+
+    changeTimeFrame: function(t) {
+      this.TimeFrame = moment()
+        .subtract(t, "days")
+        .calendar();
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.CurrentPlayerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.PlayerAttendance = Data;
+        });
+    },
+    lastWeek: function() {
+      this.TimeFrame = moment()
+        .subtract(7, "days")
+        .calendar();
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.CurrentPlayerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.PlayerAttendance = Data;
+        });
+    },
+    lastMonth: function() {
+      this.TimeFrame = moment()
+        .subtract(30, "days")
+        .calendar();
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.CurrentPlayerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.PlayerAttendance = Data;
+        });
+    },
+    lastYear: function() {
+      this.TimeFrame = moment()
+        .subtract(365, "days")
+        .calendar();
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.CurrentPlayerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.PlayerAttendance = Data;
+        });
+    },
+    renderStatus: function(status) {
+        if (status.toLowerCase() === "present") {
+            return "P"
+        } else if (status.toLowerCase() === "absent") {
+            return "A"
+        } else return "T"
     }
   }
 };
@@ -85,10 +163,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 0.5em;
+  padding: 0.5em 0;
 }
 .top_display {
-  height: 90%;
+  /* height: 35%; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -137,18 +215,22 @@ input[type="radio"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 25%;
+  height: 80%;
 }
 .calendar_entry {
   width: 13%;
+  height: 20%;
+  min-width: 3em;
+  min-height: 3em;
 }
 .calendar_date {
   background: #103072;
   color: white;
   border: 0.5px solid #545b62;
-  /* padding: 0 0.5em; */
-  height: 20%;
   text-align: center;
+  font-size: 0.8em;
+  height: 18%;
+  font-weight: bold;
 }
 .calendar_status {
   border: 0.5px solid #545b62;
@@ -157,10 +239,17 @@ input[type="radio"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
 }
 
 .player_search_bar_and_button {
   display: flex;
+}
+
+.search_list_container {
+  position: relative;
+  background: white;
+  z-index: 1000;
 }
 
 .search_list {
@@ -179,4 +268,18 @@ input[type="radio"] {
 .hidden {
   display: none;
 }
+
+form {
+  margin: 1em 0;
+}
+.calendar_display {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    flex-wrap: wrap;
+}
+.player_name {
+    font-size: 1.5em;
+}
+
 </style>

@@ -28,7 +28,8 @@ namespace server.Controllers {
                 // Filtering the data to only include FirstName and LastName with the q value
                 .Where (w => w.FirstName.ToLower ().Contains (q.ToLower()) || w.LastName.ToLower ().Contains (q.ToLower()))
                 // Orders the remaining array by the LastName 
-                .OrderBy (o => o.LastName);
+                .OrderBy (o => o.LastName)
+                .Take(5);
                 // Creates a new array to fit the SearchResults View Model
                 // .Select(s => new SearchResults {
                 //         Id = s.Id,

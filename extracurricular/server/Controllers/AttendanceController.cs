@@ -27,11 +27,15 @@ namespace server.Controllers {
 
         // Pulls all Attendance Data on a specific player
         [HttpGet("{id}")]
-        public IEnumerable<Attendance> GetPlayerAttendance(int id)
+        public IEnumerable<Attendance> GetPlayerAttendance(int id,[FromQuery] DateTime d)
         {
-            var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id);
+            var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id)
+                                                        .Where(w => w.Date >= d && w.Date <= DateTime.Now)
+                                                            .OrderBy(o => o.Date);
             return playerAttendance;
         }
+
+        
 
 
 
