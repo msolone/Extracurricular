@@ -119,51 +119,7 @@ export default {
           this.PlayerAttendance = Data;
         });
     },
-    lastWeek: function() {
-      this.TimeFrame = moment()
-        .subtract(7, "days")
-        .calendar();
-      fetch(
-        `https://localhost:5001/api/attendance/${
-          this.CurrentPlayerId
-        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
-      )
-        .then(resp => resp.json())
-        .then(Data => {
-          console.log(Data);
-          this.PlayerAttendance = Data;
-        });
-    },
-    lastMonth: function() {
-      this.TimeFrame = moment()
-        .subtract(30, "days")
-        .calendar();
-      fetch(
-        `https://localhost:5001/api/attendance/${
-          this.CurrentPlayerId
-        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
-      )
-        .then(resp => resp.json())
-        .then(Data => {
-          console.log(Data);
-          this.PlayerAttendance = Data;
-        });
-    },
-    lastYear: function() {
-      this.TimeFrame = moment()
-        .subtract(365, "days")
-        .calendar();
-      fetch(
-        `https://localhost:5001/api/attendance/${
-          this.CurrentPlayerId
-        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
-      )
-        .then(resp => resp.json())
-        .then(Data => {
-          console.log(Data);
-          this.PlayerAttendance = Data;
-        });
-    },
+
     renderStatus: function(status) {
       if (status.toLowerCase() === "present") {
         return "✔︎";
@@ -171,6 +127,7 @@ export default {
         return "✘";
       } else return "🕐";
     },
+
     isPresent: function(status) {
       if (status.toLowerCase() === "present") {
         return true;
@@ -178,6 +135,7 @@ export default {
         return false;
       }
     },
+
     isAbsent: function(status) {
       if (status.toLowerCase() === "absent") {
         return true;
@@ -185,6 +143,7 @@ export default {
         return false;
       }
     },
+    
     isTardy: function(status) {
       if (status.toLowerCase() === "tardy") {
         return true;

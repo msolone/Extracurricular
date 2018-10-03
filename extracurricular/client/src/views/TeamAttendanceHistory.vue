@@ -1,7 +1,11 @@
 <template>
     <section class="team_attendance_history_page">
         <section class="attendance_entry_buttons">
-            <button>Change Team</button>
+          <form>
+            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/>Last Week
+            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(30)" />Last Month
+            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(365)" />All Time
+          </form>
             <section class="print_save">
                 <button>Print</button>
                 <button>Save</button>
@@ -16,9 +20,10 @@
                  <tr v-for="(person, i) in TeamHistory" v-bind:key="i">
                      <section class="name_row">{{person.firstName}} {{person.lastName}}</section>
                      <section  class="status_marker" v-for="(date, j) in DateHeader" v-bind:key="j">
-                        <section :class="{status_marker: true, 
+                        <section :class="{status_style: true, 
                             green_color: isPresent(getStatusForUserForDate(person, date)),
-                            red_color: isAbsent(getStatusForUserForDate(person, date)), 
+                            red_color: isAbsent(getStatusForUserForDate(person, date)),
+                            gray_color: isNoMark(getStatusForUserForDate(person, date)), 
                             yellow_color: isTardy(getStatusForUserForDate(person, date))}">
                             {{renderStatus(getStatusForUserForDate(person, date))}}
                         </section>
@@ -84,7 +89,7 @@ export default {
         return "✘";
       } else if (status.toLowerCase() === "tardy") {
         return "🕐";
-      } else return "❓";
+      } else return "?";
     },
     isPresent: function(status) {
       if (status.toLowerCase() === "present") {
@@ -106,6 +111,21 @@ export default {
       } else {
         return false;
       }
+    },
+    isNoMark: function(status) {
+      if (status.toLowerCase() === "no marks") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    changeTimeFrame: function(t) {
+        console.log(moment(moment()
+        .subtract(t, "days")
+        .calendar()).format("YYYY-MM-DD"))
+      this.TimeFrame = moment(moment()
+        .subtract(t, "days")
+        .calendar()).format("YYYY-MM-DD");
     }
   }
 };
@@ -167,6 +187,10 @@ td {
 }
 .status_marker {
   width: 10%;
+  padding: 0 0.04em;
+}
+.status_style {
+  width: 100%;
   padding: 0 0.5em;
 }
 
@@ -174,9 +198,14 @@ td {
   background: #afc9a6;
 }
 .red_color {
-  background: #f0c1bd;
+  background: #ffb0a9;
 }
 .yellow_color {
   background: #d4d491;
+}
+.gray_color {
+  color: white;
+  font-weight: bolder;
+  background: #a2a2a1;
 }
 </style>
