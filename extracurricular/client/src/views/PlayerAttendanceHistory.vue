@@ -300,9 +300,9 @@ input[type="radio"] {
 .search_list {
   display: flex;
   flex-direction: column;
-  padding: 0.2em 0;
+  padding: 0.05em 0;
   border: 2px solid #545b62;
-  margin: 0.1em 0;
+  margin: 0.05em 0;
 }
 
 .search_list:active {
