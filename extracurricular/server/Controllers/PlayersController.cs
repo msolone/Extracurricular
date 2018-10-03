@@ -22,7 +22,8 @@ namespace server.Controllers {
         [HttpGet("{id}")]
         public IEnumerable<Player> Get (int id) 
         {
-            var players = this.db.Players.Where(w => w.TeamId == id);
+            var players = this.db.Players.Where(w => w.TeamId == id)
+                .OrderBy(o => o.LastName);
             return players;
         }
 

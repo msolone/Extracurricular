@@ -2,7 +2,7 @@
 <section class="take_attendance_page">
     <form name="attendance" >
         <section class="attendance_entry_buttons">
-            <button>Change Team</button>
+            <input class="change_date" type="date" value="2018-02-10" />
             <section class="print_save">
                 <button>Print</button>
                 <input type="submit" value="Save" v-on:click.prevent="submitAttendance"/>
@@ -19,7 +19,7 @@
                 </tr>
          
                 <tr v-for="(player) in TeamData" v-bind:key="player.playerId">
-                    <td class="player_name">{{player.firstName + " " + player.lastName}}</td>
+                    <td class="player_name"><router-link class="link" :to="`/home/player_attendance_history/${player.playerId}`">{{player.firstName + " " + player.lastName}}</router-link></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="present"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="absent"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="tardy"></td>
@@ -94,6 +94,11 @@ input {
   background: #e0e0e0;
   margin: 0 0.2em;
 }
+.change_date {
+  padding: 0.2em 1em;
+  background: #e0e0e0;
+  margin: 0 0.2em;
+}
 .take_attendance_table {
   height: 80%;
   width: 100%;
@@ -127,5 +132,8 @@ th {
 
 .attendance_rows {
   width: 100%;
+}
+.link {
+  color: #545b62;
 }
 </style>

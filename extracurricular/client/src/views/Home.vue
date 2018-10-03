@@ -23,7 +23,7 @@
       </router-link>
     </section>
     <section class="search-by-name">
-      <input type="text" placeholder="  Search by Name..." v-bind="searchName" />
+      <input type="text" placeholder="  Search by Name..." v-model="searchName" />
       <router-link class="search-button" to="/home/player_attendance_history/1">GO!</router-link>
     </section>
     <section class="adding-section">
@@ -55,6 +55,7 @@ export default {
       team_name: "My Teams",
       TeamsArray: [],
       currentTeamId: 0,
+      searchName: ''
     };
   },
   mounted: function() {

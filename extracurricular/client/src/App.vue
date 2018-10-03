@@ -78,6 +78,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 0.5em;
   /* position: fixed;
   top: 0;
   width: 100%; */
@@ -147,7 +148,7 @@ html {
   color: #42b983;
 }
 .footer {
-  margin-top: 1em;
+  margin-top: 0.5em;
   background: #103072;
   color: white;
   font-size: 1em;
