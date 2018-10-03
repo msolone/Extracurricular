@@ -147,8 +147,7 @@ html {
   color: #42b983;
 }
 .footer {
-  /* position: fixed;
-  bottom: 0; */
+  margin-top: 1em;
   background: #103072;
   color: white;
   font-size: 1em;

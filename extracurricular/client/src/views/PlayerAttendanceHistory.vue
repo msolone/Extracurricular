@@ -24,7 +24,7 @@
         <section class="calendar_display">
           <section class="calendar_entry"  v-for="(date, i) in PlayerAttendance" v-bind:key="i">
             <section class="calendar_date">{{formatDate(date.date)}}</section>
-            <section class="calendar_status">{{renderStatus(date.status)}}</section>
+            <section :class="{calendar_status: true, green_color: isPresent(date.status), red_color: isAbsent(date.status), yellow_color: isTardy(date.status) }">{{renderStatus(date.status)}}</section>
          </section>
         </section>
     </section> 
@@ -145,11 +145,32 @@ export default {
         });
     },
     renderStatus: function(status) {
-        if (status.toLowerCase() === "present") {
-            return "P"
-        } else if (status.toLowerCase() === "absent") {
-            return "A"
-        } else return "T"
+      if (status.toLowerCase() === "present") {
+        return "✔︎";
+      } else if (status.toLowerCase() === "absent") {
+        return "✘";
+      } else return "🕐";
+    },
+    isPresent: function(status) {
+      if (status.toLowerCase() === "present") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isAbsent: function(status) {
+      if (status.toLowerCase() === "absent") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isTardy: function(status) {
+      if (status.toLowerCase() === "tardy") {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };
@@ -208,7 +229,7 @@ input[type="radio"] {
   padding: 0 0.5em;
 }
 .status_display {
-  border: 0.5px solid #545b62;
+  border: 0.5px solid white;
   padding: 0 0.5em;
 }
 .calendar {
@@ -226,14 +247,14 @@ input[type="radio"] {
 .calendar_date {
   background: #103072;
   color: white;
-  border: 0.5px solid #545b62;
+  border: 0.5px solid white;
   text-align: center;
   font-size: 0.8em;
   height: 18%;
   font-weight: bold;
 }
 .calendar_status {
-  border: 0.5px solid #545b62;
+  border: 0.5px solid white;
   padding: 0 0.5em;
   height: 80%;
   display: flex;
@@ -273,13 +294,21 @@ form {
   margin: 1em 0;
 }
 .calendar_display {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  flex-wrap: wrap;
 }
 .player_name {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
-
+.green_color {
+  background: #AFC9A6;
+}
+.red_color {
+  background: #F0C1BD;
+}
+.yellow_color {
+  background: #D4D491;
+}
 </style>
