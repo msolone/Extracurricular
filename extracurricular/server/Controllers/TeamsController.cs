@@ -25,12 +25,19 @@ namespace server.Controllers {
         }
 
         [HttpGet ("history/{TeamId}")]
-        public ActionResult GetTeamHistory (int TeamId) {
+        public ActionResult GetTeamHistory (int TeamId, [FromQuery] DateTime d) {
             var history = this.db.Players
                 .Include (i => i.Attendance)
                 .Where (w => w.TeamId == TeamId)
-                .SelectMany (s => s.Attendance);
-            return Ok (history);
+                .Select( s => new {
+                    s.Id, 
+                    s.FirstName,
+                    s.LastName,
+                    s.TeamId,
+                    Attendance = s.Attendance
+                        .Where(w => w.Date >= d && w.Date <= DateTime.Now)});
+                // .SelectMany (s => s.Attendance);
+            return Ok(history);
         }
 
         // Post data to the Teams Table

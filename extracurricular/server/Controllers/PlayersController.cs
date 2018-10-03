@@ -57,6 +57,8 @@ namespace server.Controllers {
             player.FirstName = _player.FirstName;
             // Change Last Name
             player.LastName = _player.LastName;
+            // Change TeamId 
+            player.TeamId = _player.TeamId;
             // Saves Changes to DB
             this.db.SaveChanges();
             // Returns the New Question

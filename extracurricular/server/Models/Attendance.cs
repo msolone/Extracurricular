@@ -8,7 +8,7 @@ namespace Extracurricular
         public DateTime Date { get; set; } = DateTime.Now;
         public string Status { get; set; }
         public int PlayerId { get; set; }
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
 
     }
 }
