@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Extracurricular;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Controllers {
     [Route ("api/[controller]")]
@@ -16,41 +17,46 @@ namespace server.Controllers {
         }
 
         // api/teams
-        
+
         // pulls all data from the Teams Table
         [HttpGet]
-        public ActionResult<IEnumerable<Team>> Get () 
-        {
+        public ActionResult<IEnumerable<Team>> Get () {
             return this.db.Teams;
+        }
+
+        [HttpGet ("history/{TeamId}")]
+        public ActionResult GetTeamHistory (int TeamId) {
+            var history = this.db.Players
+                .Include (i => i.Attendance)
+                .Where (w => w.TeamId == TeamId)
+                .SelectMany (s => s.Attendance);
+            return Ok (history);
         }
 
         // Post data to the Teams Table
         [HttpPost]
-        public Team Post([FromBody] Team TeamName)
-        {
-        
-            this.db.Teams.Add(TeamName);
-            this.db.SaveChanges();
+        public Team Post ([FromBody] Team TeamName) {
+
+            this.db.Teams.Add (TeamName);
+            this.db.SaveChanges ();
             return TeamName;
         }
 
         // Update Data in Teams Table
-        [HttpPatch("{id}")]
-        public Team Patch([FromBody] Team _Team, int id)
-        {
+        [HttpPatch ("{id}")]
+        public Team Patch ([FromBody] Team _Team, int id) {
             // Find the Player in the Database with matching id
-            var team = this.db.Teams.FirstOrDefault(a => a.Id == id);
+            var team = this.db.Teams.FirstOrDefault (a => a.Id == id);
             // Change Team Name
             team.Name = _Team.Name;
             // Saves Changes to DB
-            this.db.SaveChanges();
+            this.db.SaveChanges ();
             // Returns the New Question
             return team;
 
         } // END HttpPatch
 
         // Delete Data in Teams Table
-   
 
     }
 

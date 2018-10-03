@@ -18,7 +18,7 @@
       <router-link :to="`/home/take_attendance/${currentTeamId}`">
         <button class="attendance-button">Take Attendance</button>
       </router-link>
-      <router-link to='/home/team_attendance_history'>
+      <router-link :to="`/home/team_attendance_history/${currentTeamId}`">
         <button class="attendance-button">Attendance History</button>
       </router-link>
     </section>

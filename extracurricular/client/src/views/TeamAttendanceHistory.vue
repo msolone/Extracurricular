@@ -29,82 +29,82 @@
 </template>
 
 <script>
-import TeamData from '../Data/practice_attendance_table'
+import TeamData from "../Data/practice_attendance_table";
 export default {
-    name: 'TeamAttendanceHistory',
-    data: function() {
-        return {
-            TeamHistory: TeamData
-        }
-    },
+  name: "TeamAttendanceHistory",
+  data: function() {
+    return {
+      TeamHistory: TeamData
+    };
+  },
 
-    mounted: function() {
-        console.log(this.TeamHistory)
-        console.log(this.TeamHistory.varsity[0].attendance)
-        },
+  mounted: function() {
+    fetch(`https://localhost:5001/api/players/${this.$route.params.TeamId}`)
+      .then(resp => resp.json())
+      .then(Data => {
+        this.TeamsArray = Data;
+        console.log(Data)
+      });
+  }
 };
-
-
 </script>
 
 <style scoped>
 .team_attendance_history_page {
-    width: 100%;
-    height: 80%;
-    overflow: scroll;
+  width: 100%;
+  height: 80%;
+  overflow: scroll;
 }
 .attendance_entry_buttons {
-    display: flex;
-    justify-content: space-between;
-    margin: 0.3em;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3em;
 }
 .attendance_entry_buttons button {
-    padding: 0.2em 1em;
-    background: #E0E0E0;
-    margin: 0 0.2em
+  padding: 0.2em 1em;
+  background: #e0e0e0;
+  margin: 0 0.2em;
 }
 table {
-    width: 100%;
+  width: 100%;
 }
 tbody {
-    width: 100%;
+  width: 100%;
 }
 
 thead {
-    width: 100%;
-    display: flex;
-    justify-content: space-around; 
-    color: white;
-    background: #103072
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  background: #103072;
 }
 .name_header {
-    width: 45%;
-    min-width: 10em;
-    padding: 0 0.5em
-    
+  width: 45%;
+  min-width: 10em;
+  padding: 0 0.5em;
 }
 .date_header {
-    width: 25%;
-    padding: 0 0.5em
-
+  width: 25%;
+  padding: 0 0.5em;
 }
 tr {
-    width: 100%;
-    display: flex;
-    justify-content: space-around; 
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 td {
-    border: 0.5px solid #545b62;
+  border: 0.5px solid #545b62;
 }
 
 .name_row {
-    width: 45%;
-    border: 0.5px solid #545b62;
-    min-width: 10em;
-    padding: 0 0.5em
+  width: 45%;
+  border: 0.5px solid #545b62;
+  min-width: 10em;
+  padding: 0 0.5em;
 }
 .status_marker {
-    width: 25%;
-    padding: 0 0.5em
+  width: 25%;
+  padding: 0 0.5em;
 }
 </style>
