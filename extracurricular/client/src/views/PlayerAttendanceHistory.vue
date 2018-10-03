@@ -2,10 +2,10 @@
     <section class="player_history_page">
         <section class="top_display">
         <section class="player_search_bar">
-          <section class="player_search_bar_and_button">
-            <input class="player_search_input" type="text" name="search_player_name" v-on:focus="unhidden" placeholder="  search by name..." v-model="searchName">
-            <button v-on:click="searchForPlayer">Search</button>
-          </section>
+          <!-- <section class="player_search_bar_and_button"> -->
+            <input class="player_search_input" type="text" name="search_player_name" v-on:focus="unhidden" v-on:keyup="searchForPlayer" placeholder="  Search by name..." v-model="searchName">
+            <!-- <button v-on:click="searchForPlayer">Search</button> -->
+          <!-- </section> -->
           <section v-bind:class="{search_list_container: true,  hidden: hasPlayerId}"> 
             <section v-bind:class="{search_list: true}" v-for="(player) in searchResults" v-bind:key="player.id"  v-on:click="updateCurrentPlayerId(player)">{{player.firstName}} {{player.lastName}}</section>
           </section>
@@ -47,6 +47,26 @@ export default {
         .subtract(7, "days")
         .calendar()
     };
+  },
+  mounted: function() {
+      this.CurrentPlayerId = this.$route.params.playerId;
+      this.hasPlayerId = true;
+
+      fetch(`https://localhost:5001/api/players/player/${this.$route.params.playerId}`)
+        .then(resp => resp.json())
+        .then(Data => {
+          this.PlayerData = Data[0];
+        });
+      fetch(
+        `https://localhost:5001/api/attendance/${
+          this.$route.params.playerId
+        }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.PlayerAttendance = Data;
+        });
   },
   methods: {
     formatDate: function(date) {
@@ -182,9 +202,10 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   padding: 0.5em 0;
+  margin-top: 1em;
 }
 .top_display {
   /* height: 35%; */
@@ -197,7 +218,9 @@ export default {
 .player_search_bar {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+  width: 90%
 }
 .player_search_bar button {
   background: #103072;
@@ -207,7 +230,7 @@ export default {
 .player_search_input {
   border: 0.5px solid #545b62;
   width: 80%;
-  height: 2em;
+  min-height: 2em;
 }
 .player_info {
   width: 100%;
@@ -270,6 +293,7 @@ input[type="radio"] {
 .search_list_container {
   position: relative;
   background: white;
+  width: 80%;
   z-index: 1000;
 }
 

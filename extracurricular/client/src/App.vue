@@ -20,7 +20,7 @@
             <router-link to="/home" class="dropdown-item">Home</router-link>
             <router-link to="/home/take_attendance" class="dropdown-item">Attendance</router-link>
             <router-link to="/home/team_attendance_history" class="dropdown-item">History</router-link>
-            <router-link to="/home/player_attendance_history/3" class="dropdown-item">Search</router-link>
+            <router-link to="/home/player_attendance_history/1" class="dropdown-item">Search</router-link>
           </div>
         </div>
       </section>
