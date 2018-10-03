@@ -1,10 +1,10 @@
 <template>
     <section class="team_attendance_history_page">
         <section class="attendance_entry_buttons">
-          <form>
-            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/>Last Week
-            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(30)" />Last Month
-            <input type="radio" name="team_history_range" v-on:click="changeTimeFrame(365)" />All Time
+          <form class="time_frame_radios">
+            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/><div>Week</div>
+            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(30)" /><div>Month</div>
+            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(365)" /><div>Year</div>
           </form>
             <section class="print_save">
                 <button>Print</button>
@@ -62,7 +62,6 @@ export default {
       );
     console.log({ week });
     this.DateHeader = week;
-
     fetch(`https://localhost:5001/api/teams/history/${this.$route.params.TeamId}
                                     ?d=${this.TimeFrame}`)
       .then(resp => resp.json())
@@ -120,12 +119,25 @@ export default {
       }
     },
     changeTimeFrame: function(t) {
-        console.log(moment(moment()
-        .subtract(t, "days")
-        .calendar()).format("YYYY-MM-DD"))
+    const week = "."
+      .repeat(t)
+      .split("")
+      .map((_, i) =>
+        moment()
+          .subtract(i, "days")
+          .format("MM/DD")
+      );
+    this.DateHeader = week;
       this.TimeFrame = moment(moment()
         .subtract(t, "days")
         .calendar()).format("YYYY-MM-DD");
+      fetch(`https://localhost:5001/api/teams/history/${this.$route.params.TeamId}
+                                    ?d=${this.TimeFrame}`)
+      .then(resp => resp.json())
+      .then(Data => {
+        this.TeamHistory = Data;
+        console.log(Data);
+      });;
     }
   }
 };
@@ -207,5 +219,15 @@ td {
   color: white;
   font-weight: bolder;
   background: #a2a2a1;
+}
+
+.time_frame_radios {
+    display: flex;
+    align-items: center;
+}
+
+.time_frame_radios div {
+   font-size: 1em;
+   padding: 0 0.5em;
 }
 </style>
