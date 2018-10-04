@@ -35,15 +35,15 @@ namespace server.Controllers {
             return playerAttendance;
         }
 
-        // Pulls all Attendance Data on a specific player
-        [HttpGet("{id}")]
-        public IEnumerable<Attendance> GetMonthlyAttendance(int id,[FromQuery] DateTime d, DateTime f)
-        {
-            var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id)
-                                                        .Where(w => w.Date >= d && w.Date <= f)
-                                                            .OrderBy(o => o.Date);
-            return playerAttendance;
-        }
+        // Pulls all Attendance Data on a specific player from a specific month
+        // [HttpGet("{id}")]
+        // public IEnumerable<Attendance> GetMonthlyAttendance(int id,[FromQuery] DateTime d, DateTime f)
+        // {
+        //     var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id)
+        //                                                 .Where(w => w.Date >= d && w.Date <= f)
+        //                                                     .OrderBy(o => o.Date);
+        //     return playerAttendance;
+        // }
 
         
 

@@ -2,10 +2,7 @@
     <section class="player_history_page">
         <section class="top_display">
         <section class="player_search_bar">
-          <!-- <section class="player_search_bar_and_button"> -->
             <input class="player_search_input" type="text" name="search_player_name" v-on:focus="unhidden" v-on:keyup="searchForPlayer" placeholder="  Search by name..." v-model="searchName">
-            <!-- <button v-on:click="searchForPlayer">Search</button> -->
-          <!-- </section> -->
           <section v-bind:class="{search_list_container: true,  hidden: hasPlayerId}"> 
             <section v-bind:class="{search_list: true}" v-for="(player) in searchResults" v-bind:key="player.id"  v-on:click="updateCurrentPlayerId(player)">{{player.firstName}} {{player.lastName}}</section>
           </section>

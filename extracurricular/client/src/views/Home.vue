@@ -22,10 +22,23 @@
         <button class="attendance-button">Attendance History</button>
       </router-link>
     </section>
-    <section class="search-by-name">
-      <input type="text" placeholder="  Search by Name..." v-model="searchName" />
-      <router-link class="search-button" to="/home/player_attendance_history/1">GO!</router-link>
-    </section>
+      <section class="player_search_bar">
+           <input class="player_search_input" 
+           type="text"
+           name="search_player_name" 
+           v-on:focus="unhidden" 
+           v-on:keyup="searchForPlayer" 
+           placeholder="  Search by name..." 
+           v-model="searchName">
+        <section v-bind:class="{search_list_container: true,  hidden: hasPlayerId}"> 
+          <section 
+          v-bind:class="{search_list: true}" 
+          v-for="(player) in searchResults" v-bind:key="player.id"  
+          v-on:click="updateCurrentPlayerId(player)">
+          {{player.firstName}} {{player.lastName}}
+          </section>
+        </section>
+      </section>
     <section class="adding-section">
     <section class="adding-section-top">
       <router-link class="add-team" to="/home/add_team">
@@ -48,6 +61,7 @@
 </template>
 
 <script>
+import router from 'vue-router';
 export default {
   name: "Home",
   data: function() {
@@ -55,20 +69,39 @@ export default {
       team_name: "My Teams",
       TeamsArray: [],
       currentTeamId: 0,
-      searchName: ''
+      searchName: "",
+      hasPlayerId:false,
+      searchResults: [],
+      CurrentPlayerId: 0
     };
   },
   mounted: function() {
     fetch("https://localhost:5001/api/Teams")
-    .then(resp => resp.json())
-    .then(TeamData => {
-      this.TeamsArray = TeamData
-  })
+      .then(resp => resp.json())
+      .then(TeamData => {
+        this.TeamsArray = TeamData;
+      });
   },
   methods: {
     updateTeamName: function(team) {
-      this.currentTeamId = team.id
-      this.team_name = team.name
+      this.currentTeamId = team.id;
+      this.team_name = team.name;
+    },
+    unhidden: function() {
+      this.hasPlayerId = false;
+    },
+    searchForPlayer: function() {
+      fetch(`https://localhost:5001/api/search?q=${this.searchName}`)
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.searchResults = Data;
+        });
+    },
+    updateCurrentPlayerId: function(player) {
+      this.CurrentPlayerId = player.id;
+      this.hasPlayerId = true;
+      this.$router.push({ path: `/home/player_attendance_history/${this.CurrentPlayerId}` })
     }
   }
 };
@@ -155,8 +188,7 @@ h5 {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  padding: 0 0.5em
-
+  padding: 0 0.5em;
 }
 .add-team {
   display: flex;
@@ -188,6 +220,42 @@ h5 {
 .teams_dropdown {
   max-height: 8em;
   overflow: scroll;
+}
+
+.player_search_bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* width: 90% */
+}
+
+.search_list_container {
+  position: relative;
+  background: white;
+  width: 80%;
+  z-index: 1000;
+  max-width: 20em;
+}
+
+.search_list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.05em 0;
+  border: 2px solid #545b62;
+  margin: 0.05em 0;
+}
+
+.search_list:active {
+  background: #103072;
+  color: white;
+}
+
+.player_search_input {
+  border: 0.5px solid #545b62;
+  width: 80%;
+  min-height: 2em;
+  max-width: 20em;
 }
 </style>
 
