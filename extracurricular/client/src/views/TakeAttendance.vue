@@ -2,12 +2,31 @@
 <section class="take_attendance_page">
     <form name="attendance" >
         <section class="attendance_entry_buttons">
-            <input class="change_date" type="date" value="2018-02-10" />
+            <input class="change_date" type="date" />
             <section class="print_save">
                 <button>Print</button>
-                <input type="submit" value="Save" v-on:click.prevent="submitAttendance"/>
+                <input type="submit" value="Save" v-on:click.prevent="submitAttendance" data-toggle="modal" data-target="#exampleModalCenter"/>
             </section>
         </section>
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Message from Extracurricular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          <div class="modal-body">
+              Attendance Submitted
+          </div>
+             <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+            </div>
+          </div>
+        </div>
 
      <table class="take_attendance_table">
             <tbody>
@@ -18,7 +37,8 @@
                     <th>TAR</th>
                 </tr>
          
-                <tr v-for="(player) in TeamData" v-bind:key="player.playerId">
+                <tr v-for="(player) in TeamData" v-bind:key="player.playerId"
+                :class="{green_color: isPresent(player.status), red_color: isAbsent(player.status), yellow_color: isTardy(player.status)}">
                     <td class="player_name"><router-link class="link" :to="`/home/player_attendance_history/${player.playerId}`">{{player.firstName + " " + player.lastName}}</router-link></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="present"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="absent"></td>
@@ -33,6 +53,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "TakeAttendance",
   data: function() {
@@ -58,20 +79,41 @@ export default {
   },
   methods: {
     submitAttendance: function() {
-      console.log("this works");
-      console.log(this.TeamData);
       fetch(`https://localhost:5001/api/attendance`, {
         method: "POST",
-        headers:{
-          "Content-type":"application/json"
+        headers: {
+          "Content-type": "application/json"
         },
-        body:JSON.stringify(this.TeamData)
+        body: JSON.stringify(this.TeamData)
       })
         .then(resp => resp.json())
         .then(Data => {
-          console.log({Data});
-         
+          console.log(Data);
         });
+    },
+
+    isPresent: function(status) {
+      if (status.toLowerCase() === "present") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    isAbsent: function(status) {
+      if (status.toLowerCase() === "absent") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    isTardy: function(status) {
+      if (status.toLowerCase() === "tardy") {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };
@@ -135,5 +177,14 @@ th {
 }
 .link {
   color: #545b62;
+}
+.green_color {
+  background: #afc9a6;
+}
+.red_color {
+  background: #f0c1bd;
+}
+.yellow_color {
+  background: #d4d491;
 }
 </style>
