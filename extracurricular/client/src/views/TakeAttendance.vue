@@ -59,7 +59,8 @@ export default {
   data: function() {
     return {
       TeamData: [],
-      currentTeamId: this.$route.params.TeamId
+      currentTeamId: this.$route.params.TeamId,
+
     };
   },
   mounted: function() {

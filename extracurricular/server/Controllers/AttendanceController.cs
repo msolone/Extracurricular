@@ -36,17 +36,14 @@ namespace server.Controllers {
         }
 
         // Pulls all Attendance Data on a specific player from a specific month
-        // [HttpGet("{id}")]
-        // public IEnumerable<Attendance> GetMonthlyAttendance(int id,[FromQuery] DateTime d, DateTime f)
-        // {
-        //     var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id)
-        //                                                 .Where(w => w.Date >= d && w.Date <= f)
-        //                                                     .OrderBy(o => o.Date);
-        //     return playerAttendance;
-        // }
-
-        
-
+        [HttpGet("monthly/{id}")]
+        public IEnumerable<Attendance> GetMonthlyAttendance(int id,[FromQuery] DateTime s,[FromQuery] DateTime e)
+        {
+            var playerAttendance = this.db.Attendance.Where(w => w.PlayerId == id)
+                                                        .Where(w => w.Date >= s && w.Date <= e)
+                                                            .OrderBy(o => o.Date);
+            return playerAttendance;
+        }
 
 
         [HttpPost]
@@ -58,6 +55,14 @@ namespace server.Controllers {
 
             return Ok(teamData);
         }
+
+        // // Patches all the current attendance at once
+        // [HttpPut]
+        // public ActionResult Put(int i, DateTime d)
+        // {
+        //     this.db.Attendance.Where(w => w.Date)
+    
+        // }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
