@@ -64,6 +64,16 @@ namespace server.Controllers {
         } // END HttpPatch
 
         // Delete Data in Teams Table
+        [HttpDelete("{id}")]
+        public ActionResult<Team> Delete(int id)
+        {
+            // Get player based on ID
+            var teamToDelete = this.db.Teams.FirstOrDefault(f => f.Id == id);
+            this.db.Remove(teamToDelete);
+            this.db.SaveChanges();
+
+            return Ok("Team Deleted");
+        }
 
     }
 

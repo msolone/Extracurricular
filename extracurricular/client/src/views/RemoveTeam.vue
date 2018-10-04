@@ -3,19 +3,20 @@
         <section class="remove_team_header">
             Remove a Team
         </section>
+      <section class="my-teams-dropdown">
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle"
-            type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <!-- Need to get this to update dynamical based on actual teams -->
-            {{ team_name }}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <h5 class="dropdown-item" v-on:click="updateVarsityTeamName">Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateJVTeamName">Junior Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateFreshmenTeamName">Freshmen</h5>
-            </div>
+          <button class="btn btn-secondary dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ team_name }}
+          </button>
+        <ul class="dropdown-menu teams_dropdown" aria-labelledby="dropdownMenu1" >
+          <li class="dropdown-item" v-for="team in TeamsArray" v-bind:key="team.id" v-on:click="updateTeamName(team)" >
+          {{team.name}}
+          </li>
+        </ul>
         </div>
+    </section>
         <p class="warning_text">
             Warning this is a permanent deletion, 
             you will no longer be able to access any 
@@ -31,36 +32,56 @@
             </section>
         </section>
     
-        <button class="remove_team_button" type="submit" :disabled="isDisabled" >Remove</button>
+        <button class="remove_team_button" type="submit" :disabled="isDisabled" v-on:click="deleteTeam">Remove</button>
 
     </section>
 </template>
 
 <script>
 export default {
-    name: "RemoveTeam",
-        data: function() {
+  name: "RemoveTeam",
+  data: function() {
     return {
       team_name: "Select Team",
+      currentTeamId: 0,
+      TeamsArray: [],
       isDisabled: true
     };
   },
+  mounted: function() {
+    fetch("https://localhost:5001/api/Teams")
+      .then(resp => resp.json())
+      .then(TeamData => {
+        this.TeamsArray = TeamData;
+      });
+  },
   methods: {
-    updateVarsityTeamName: function() {
-      this.team_name = "Varsity";
-    },
-    updateJVTeamName: function() {
-      this.team_name = "Junior Varsity";
-    },
-    updateFreshmenTeamName: function() {
-      this.team_name = "Freshmen";
+    updateTeamName: function(team) {
+      this.currentTeamId = team.id;
+      this.team_name = team.name;
+      // fetch(`https://localhost:5001/api/players/${this.currentTeamId}`)
+      //   .then(resp => resp.json())
+      //   .then(Data => {
+      //     this.PlayersArray = Data;
+      //   });
     },
     unlockSubmit: function() {
-        this.isDisabled = false;
+      this.isDisabled = false;
+    },
+    deleteTeam: function() {
+      fetch(`https://localhost:5001/api/teams/${this.currentTeamId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(resp => resp.json())
+        .then(PlayerData => {
+          console.log(this.team_name + "Deleted");
+        });
     }
   }
-
-}
+};
 </script>
 
 
@@ -115,18 +136,18 @@ button {
   text-align: center;
 }
 .warning_text {
-    color: red;
+  color: red;
 }
 .warning_checkbox {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .warning_checkbox_input {
-    height: 1.5em;
-    width: 1.5em;
+  height: 1.5em;
+  width: 1.5em;
 }
 .warning_checkbox_text {
-    padding-left: 1em;
+  padding-left: 1em;
 }
 .remove_team_button {
   color: white;
@@ -138,4 +159,9 @@ button {
   padding: 0.4em 0.8em;
 }
 
+.teams_dropdown {
+  width: 100%;
+  max-height: 8em;
+  overflow: scroll;
+}
 </style>

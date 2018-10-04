@@ -10,7 +10,7 @@
           aria-haspopup="true" aria-expanded="false">
           {{ team_name }}
           </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+        <ul class="dropdown-menu players_dropdown" aria-labelledby="dropdownMenu1" >
           <li class="dropdown-item" v-for="team in TeamsArray" v-bind:key="team.id" v-on:click="updateTeamName(team)" >
           {{team.name}}
           </li>
@@ -183,7 +183,7 @@ button {
 }
 
 .players_dropdown {
-  max-height: 10em;
+  max-height: 6.5em;
   overflow: scroll;
 }
 </style>
