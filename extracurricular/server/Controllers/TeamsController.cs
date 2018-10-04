@@ -72,7 +72,7 @@ namespace server.Controllers {
             this.db.Remove(teamToDelete);
             this.db.SaveChanges();
 
-            return Ok("Team Deleted");
+            return Ok(new {message =  "Team Deleted"});
         }
 
     }

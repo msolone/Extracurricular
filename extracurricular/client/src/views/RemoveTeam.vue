@@ -77,7 +77,7 @@ export default {
       })
         .then(resp => resp.json())
         .then(PlayerData => {
-          console.log(this.team_name + "Deleted");
+          console.log(this.team_name + "  Deleted");
         });
     }
   }
