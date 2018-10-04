@@ -69,6 +69,16 @@ namespace server.Controllers {
 
 
         // Delete Data in Players Table
+        [HttpDelete("{id}")]
+        public ActionResult<Player> Delete(int id)
+        {
+            // Get player based on ID
+            var playerToDelete = this.db.Players.FirstOrDefault(f => f.Id == id);
+            this.db.Remove(playerToDelete);
+            this.db.SaveChanges();
+
+            return Ok("Player Deleted");
+        }
    
 
     }

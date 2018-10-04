@@ -3,19 +3,21 @@
         <section class="remove_player_header">
             Remove a Player
         </section>
+      <section class="my-teams-dropdown">
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle"
-            type="button" id="dropdownMenu1" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <!-- Need to get this to update dynamical based on actual teams -->
-            {{ team_name }}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <h5 class="dropdown-item" v-on:click="updateVarsityTeamName">Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateJVTeamName">Junior Varsity</h5>
-                <h5 class="dropdown-item" v-on:click="updateFreshmenTeamName">Freshmen</h5>
-            </div>
+          <button class="btn btn-secondary dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ team_name }}
+          </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+          <li class="dropdown-item" v-for="team in TeamsArray" v-bind:key="team.id" v-on:click="updateTeamName(team)" >
+          {{team.name}}
+          </li>
+        </ul>
         </div>
+    </section>
+      <!-- <section class="my-teams-dropdown"> -->
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle"
             type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -23,12 +25,14 @@
             <!-- Need to get this to update dynamical based on actual teams -->
             {{ player_name }}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <h5 class="dropdown-item" v-on:click="updatePlayer1Name">John Doe</h5>
-                <h5 class="dropdown-item" v-on:click="updatePlayer2Name">John Doe Jr</h5>
-                <h5 class="dropdown-item" v-on:click="updatePlayer3Name">John Doe III</h5>
+            <ul class="dropdown-menu players_dropdown" aria-labelledby="dropdownMenu1">
+              <li class="dropdown-item" v-for="player in PlayersArray" v-bind:key="player.id"
+              v-on:click="updatePlayerName(player)">
+                {{player.firstName + " " + player.lastName}}
+              </li>
+            </ul>
         </div>
-        </div>
+      <!-- </section> -->
         <p class="warning_text">
             Warning this is a permanent deletion, 
             you will no longer be able to access any 
@@ -44,50 +48,64 @@
             </section>
         </section>
     
-        <button class="remove_player_button" type="submit" :disabled="isDisabled" >Remove</button>
+        <button class="remove_player_button" type="submit" :disabled="isDisabled" v-on:click="deletePlayer">Remove</button>
 
     </form>
 </template>
 
 <script>
 export default {
-    name: "RemovePlayer",
-        data: function() {
+  name: "RemovePlayer",
+  data: function() {
     return {
+      isDisabled: true,
       team_name: "Select Team",
+      currentTeamId: 0,
       player_name: "Select Player",
-      isDisabled: true
-
+      currentPlayerId: 0,
+      TeamsArray: [],
+      PlayersArray: []
     };
   },
-//   mounted: {
-//        isDisabled = true
-//   },
+  mounted: function() {
+    fetch("https://localhost:5001/api/Teams")
+      .then(resp => resp.json())
+      .then(TeamData => {
+        this.TeamsArray = TeamData;
+      });
+  },
+
   methods: {
-    updateVarsityTeamName: function() {
-      this.team_name = "Varsity";
+    updateTeamName: function(team) {
+      this.currentTeamId = team.id;
+      this.team_name = team.name;
+      fetch(`https://localhost:5001/api/players/${this.currentTeamId}`)
+        .then(resp => resp.json())
+        .then(Data => {
+          this.PlayersArray = Data;
+        });
     },
-    updateJVTeamName: function() {
-      this.team_name = "Junior Varsity";
-    },
-    updateFreshmenTeamName: function() {
-      this.team_name = "Freshmen";
-    },
-    updatePlayer1Name: function() {
-      this.player_name = "John Doe";
-    },
-    updatePlayer2Name: function() {
-      this.player_name = "John Doe Jr";
-    },
-    updatePlayer3Name: function() {
-      this.player_name = "John Doe III";
+    updatePlayerName: function(player) {
+      this.currentPlayerId = player.id;
+      this.player_name = player.firstName + " " + player.lastName;
     },
     unlockSubmit: function() {
-        this.isDisabled = false;
+      this.isDisabled = false;
+    },
+    deletePlayer: function() {
+      fetch(`https://localhost:5001/api/Players/${this.currentPlayerId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(resp => resp.json())
+        .then(PlayerData => {
+          console.log(this.player_name + "Deleted");
+        });
     }
   }
-
-}
+};
 </script>
 
 <style scoped>
@@ -141,18 +159,18 @@ button {
   text-align: center;
 }
 .warning_text {
-    color: red;
+  color: red;
 }
 .warning_checkbox {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .warning_checkbox_input {
-    height: 1.5em;
-    width: 1.5em;
+  height: 1.5em;
+  width: 1.5em;
 }
 .warning_checkbox_text {
-    padding-left: 1em;
+  padding-left: 1em;
 }
 .remove_player_button {
   color: white;
@@ -162,5 +180,10 @@ button {
   width: 25%;
   border-radius: 0.2em;
   padding: 0.4em 0.8em;
+}
+
+.players_dropdown {
+  max-height: 10em;
+  overflow: scroll;
 }
 </style>

@@ -172,6 +172,8 @@ thead {
   /* justify-content: space-around; */
   color: white;
   background: #103072;
+  align-items: center;
+ 
 }
 .name_header {
   width: 30%;
@@ -180,7 +182,10 @@ thead {
 }
 .date_header {
   width: 10%;
-  padding: 0 0.5em;
+  padding: 0 0.05em;
+  min-width: 2em;
+  font-size: 0.9em;
+
 }
 tr {
   width: 100%;
@@ -199,7 +204,8 @@ td {
 }
 .status_marker {
   width: 10%;
-  padding: 0 0.04em;
+  padding: 0 0.05em;
+  min-width: 2em;
 }
 .status_style {
   width: 100%;
@@ -224,6 +230,7 @@ td {
 .time_frame_radios {
     display: flex;
     align-items: center;
+    margin-left: 0.5em;
 }
 
 .time_frame_radios div {
