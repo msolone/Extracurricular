@@ -1,15 +1,17 @@
 <template>
 <section class="take_attendance_page">
     <form name="attendance" >
-        <section class="attendance_entry_buttons">
-            <input class="change_date" type="date" />
+        <section class="attendance_entry_buttons"> 
+        <!-- Add change date feature later 
+             <input class="change_date" type="date" /> -->
             <section class="print_save">
-                <button>Print</button>
-                <input type="submit" value="Save" v-on:click.prevent="submitAttendance" data-toggle="modal" data-target="#exampleModalCenter"/>
+              <!-- Add print feature later 
+                <button>Print</button> -->
+                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance" data-toggle="modal" data-target="#exampleModalCenter"/>
             </section>
         </section>
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" v-on:blur="lockSubmit">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -60,6 +62,7 @@ export default {
     return {
       TeamData: [],
       currentTeamId: this.$route.params.TeamId,
+      isDisabled: false,
 
     };
   },
@@ -115,7 +118,11 @@ export default {
       } else {
         return false;
       }
-    }
+    },
+    lockSubmit: function() {
+      console.log("working")
+      this.isDisabled = true;
+    },
   }
 };
 </script>
@@ -128,8 +135,13 @@ export default {
 }
 .attendance_entry_buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content:flex-end;
   margin: 0.3em;
+  align-items: center;
+}
+
+.print_save {
+
 }
 .attendance_entry_buttons button,
 input {

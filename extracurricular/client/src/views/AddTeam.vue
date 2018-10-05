@@ -5,8 +5,26 @@
         </section>
         <form  class="add_team_form" action="">
             <input class="add_team_input" type="text" name="team_name" placeholder="Enter Team Name Here..." v-model="teamName"/>
-            <button class="add_team_button" type="submit" v-on:click.prevent="submitTeam">Submit</button> 
+            <button class="add_team_button" type="submit" v-on:click.prevent="submitTeam" data-toggle="modal" data-target="#exampleModalCenter">Submit</button> 
         </form>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Message from Extracurricular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          <div class="modal-body">
+              Team Added
+          </div>
+             <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+            </div>
+          </div>
+        </div>
     </section>
 </template>
 

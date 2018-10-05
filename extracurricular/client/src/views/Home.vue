@@ -80,6 +80,8 @@ export default {
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
+        this.currentTeamId = TeamData[0].id
+        this.team_name = TeamData[0].name
       });
   },
   methods: {

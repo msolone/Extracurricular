@@ -39,6 +39,22 @@ namespace server.Controllers {
                 // .SelectMany (s => s.Attendance);
             return Ok(history);
         }
+        // Get all attendance based on month
+        [HttpGet ("monthly/{TeamId}")]
+        public ActionResult GetTeamHistory (int TeamId, [FromQuery] DateTime b, [FromQuery] DateTime e) {
+            var history = this.db.Players
+                .Include (i => i.Attendance)
+                .Where (w => w.TeamId == TeamId)
+                .Select( s => new {
+                    s.Id, 
+                    s.FirstName,
+                    s.LastName,
+                    s.TeamId,
+                    Attendance = s.Attendance
+                        .Where(w => w.Date >= b && w.Date <= e)});
+                // .SelectMany (s => s.Attendance);
+            return Ok(history);
+        }
 
         // Post data to the Teams Table
         [HttpPost]

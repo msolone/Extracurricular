@@ -2,14 +2,13 @@
     <section class="team_attendance_history_page">
         <section class="attendance_entry_buttons">
           <form class="time_frame_radios">
-            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/><div>Week</div>
-            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(30)" /><div>Month</div>
-            <input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(365)" /><div>Year</div>
+            <!-- <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/><div>Week</div></div>
+            <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(30)" /><div>Month</div></div>
+            <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(365)" /><div>Year</div></div> -->
+            <div class="last_month" v-on:click="lastMonth" >▶︎</div> 
+            <h3>{{MonthDisplay}}</h3>
+            <div v-on:click="nextMonth">▶︎</div> 
           </form>
-            <section class="print_save">
-                <button>Print</button>
-                <button>Save</button>
-            </section>
         </section>
         <table>
             <thead>
@@ -37,6 +36,7 @@
 
 <script>
 import moment from "moment";
+const date = new Date();
 export default {
   name: "TeamAttendanceHistory",
   data: function() {
@@ -47,23 +47,36 @@ export default {
           .subtract(7, "days")
           .calendar()
       ).format("YYYY-MM-DD"),
-      DateHeader: []
+      DateHeader: [],
+
+      MonthStart: moment(
+        new Date(date.getFullYear(), date.getMonth(), 1)
+      ).format("YYYY-MM-DD"),
+      MonthEnd: moment(
+        new Date(date.getFullYear(), date.getMonth() + 1, 0)
+      ).format("YYYY-MM-DD"),
+      MonthDisplay: ""
     };
   },
 
   mounted: function() {
+    this.MonthDisplay = moment(this.MonthStart).format("MMMM");
+    const currentMonth = parseInt(moment(this.MonthEnd).format("DD"));
     const week = "."
-      .repeat(7)
+      .repeat(currentMonth)
       .split("")
       .map((_, i) =>
-        moment()
+        moment(this.MonthEnd)
           .subtract(i, "days")
-          .format("MM/DD")
-      );
-    console.log({ week });
+          .format("DD")
+      )
+      .reverse();
+    console.log(week);
     this.DateHeader = week;
-    fetch(`https://localhost:5001/api/teams/history/${this.$route.params.TeamId}
-                                    ?d=${this.TimeFrame}`)
+    fetch(`https://localhost:5001/api/teams/monthly/
+    ${this.$route.params.TeamId}
+    ?b=${this.MonthStart}
+    &e=${this.MonthEnd}`)
       .then(resp => resp.json())
       .then(Data => {
         this.TeamHistory = Data;
@@ -73,8 +86,10 @@ export default {
 
   methods: {
     getStatusForUserForDate: function(person, dateSlug) {
+    const currentMonth = parseInt(moment(this.MonthEnd).format("MM"));
+
       const _attendance = person.attendance.filter(
-        i => moment(i.date).format("MM/DD") == dateSlug
+        i => moment(i.date).format("MM/DD") == currentMonth+"/"+dateSlug
       )[0];
       return _attendance ? _attendance.status : "no marks";
     },
@@ -118,27 +133,69 @@ export default {
         return false;
       }
     },
-    changeTimeFrame: function(t) {
-    const week = "."
-      .repeat(t)
-      .split("")
-      .map((_, i) =>
-        moment()
-          .subtract(i, "days")
-          .format("MM/DD")
-      );
-    this.DateHeader = week;
-      this.TimeFrame = moment(moment()
-        .subtract(t, "days")
-        .calendar()).format("YYYY-MM-DD");
-      fetch(`https://localhost:5001/api/teams/history/${this.$route.params.TeamId}
-                                    ?d=${this.TimeFrame}`)
-      .then(resp => resp.json())
-      .then(Data => {
-        this.TeamHistory = Data;
-        console.log(Data);
-      });;
-    }
+    
+    lastMonth: function() {
+      this.MonthEnd = moment(this.MonthStart)
+        .subtract(1, "day")
+        .format("YYYY-MM-DD");
+      this.MonthStart = moment(this.MonthStart)
+        .subtract(1, "month")
+        .format("YYYY-MM-DD");
+      this.MonthDisplay = moment(this.MonthStart).format("MMMM");
+      const currentMonth = parseInt(moment(this.MonthEnd).format("DD"));
+      const week = "."
+        .repeat(currentMonth)
+        .split("")
+        .map((_, i) =>
+          moment(this.MonthEnd)
+            .subtract(i, "days")
+            .format("DD")
+        )
+        .reverse();
+      this.DateHeader = week;
+      fetch(`https://localhost:5001/api/teams/monthly/
+      ${this.$route.params.TeamId}
+      ?b=${this.MonthStart}
+      &e=${this.MonthEnd}`)
+        .then(resp => resp.json())
+        .then(Data => {
+          this.TeamHistory = Data;
+          console.log(Data);
+        });
+    },
+
+    nextMonth: function(t) {
+      const oldMonthEnd = this.MonthEnd;
+      this.MonthEnd = moment(this.MonthStart)
+        .add(2, "month")
+        .subtract(1, "day")
+        .format("YYYY-MM-DD");
+      this.MonthStart = moment(oldMonthEnd)
+        .add(1, "day")
+        .format("YYYY-MM-DD");
+      this.MonthDisplay = moment(this.MonthStart).format("MMMM");
+      const currentMonth = parseInt(moment(this.MonthEnd).format("DD"));
+        const week = "."
+        .repeat(currentMonth)
+        .split("")
+        .map((_, i) =>
+          moment(this.MonthEnd)
+            .subtract(i, "days")
+            .format("DD")
+            
+        ).reverse();
+      this.DateHeader = week;
+        fetch(`https://localhost:5001/api/teams/monthly/
+        ${this.$route.params.TeamId}
+        ?b=${this.MonthStart}
+        &e=${this.MonthEnd}`)
+        .then(resp => resp.json())
+        .then(Data => {
+          this.TeamHistory = Data;
+          console.log(Data);
+        });;
+      }
+    
   }
 };
 </script>
@@ -151,7 +208,7 @@ export default {
 }
 .attendance_entry_buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0.3em;
 }
 .attendance_entry_buttons button {
@@ -173,7 +230,6 @@ thead {
   color: white;
   background: #103072;
   align-items: center;
- 
 }
 .name_header {
   width: 30%;
@@ -185,7 +241,6 @@ thead {
   padding: 0 0.05em;
   min-width: 2em;
   font-size: 0.9em;
-
 }
 tr {
   width: 100%;
@@ -228,13 +283,35 @@ td {
 }
 
 .time_frame_radios {
-    display: flex;
-    align-items: center;
-    margin-left: 0.5em;
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 0.5em;
 }
 
 .time_frame_radios div {
-   font-size: 1em;
-   padding: 0 0.5em;
+  font-size: 1em;
+  padding: 0 0.5em;
+  cursor: pointer;
+  color: #545b62;
+}
+
+.time_frame_radios h3 {
+  color: #545b62;
+}
+
+.time_frame_div {
+  display: flex;
+  align-items: center;
+  
+}
+
+.last_month {
+-moz-transform: scale(-1, 1);
+-webkit-transform: scale(-1, 1);
+-o-transform: scale(-1, 1);
+-ms-transform: scale(-1, 1);
+transform: scale(-1, 1);
 }
 </style>

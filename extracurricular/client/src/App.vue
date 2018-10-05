@@ -21,6 +21,7 @@
             <router-link to="/home/take_attendance/1" class="dropdown-item">Attendance</router-link>
             <router-link to="/home/team_attendance_history/1" class="dropdown-item">History</router-link>
             <router-link to="/home/player_attendance_history/1" class="dropdown-item">Search</router-link>
+             <router-link to="/home" class="dropdown-item">Change Team</router-link>
           </div>
         </div>
       </section>
@@ -97,7 +98,7 @@ html {
 .logo {
   display: flex;
   align-items: center;
-  padding-left: 1em;
+  padding-left: 2em;
   padding-top: 0.5em;
   color: white;
 }
@@ -108,7 +109,7 @@ html {
 }
 
 .dropdown {
-  padding-right: 1em;
+  padding-right: 2em;
   background: #103072;
 }
 
@@ -129,11 +130,14 @@ html {
 .dropdown-toggle::after {
   content: none;
 }
-
+.dropdown-menu {
+  left: 15px;
+}
 .dropdown-menu-header {
   width: 7.5em;
   margin: 0.125rem -3em;
-  min-width: 3em;
+  min-width: 8.5em;
+  left: -15px!
 }
 #nav {
   padding: 30px;
