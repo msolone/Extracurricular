@@ -29,7 +29,10 @@
 
     </header>
 
-    <router-view/>
+      <router-view 
+        :auth="auth" 
+        :authenticated="authenticated">
+      </router-view>
     <footer class="footer">
       <p>Created by Michael Solone</p>
     </footer>
@@ -37,11 +40,23 @@
 </template>
 
 <script>
+import AuthService from "./Auth/AuthServices.js";
+const auth = new AuthService();
+const { login, logout, authenticated, authNotifier } = auth;
 export default {
   data: function() {
+    authNotifier.on("authChange", authState => {
+      this.authenticated = authState.authenticated;
+    });
     return {
+      auth,
+      authenticated,
       footerOff: false
     };
+  },
+  methods: {
+    login,
+    logout
   }
 };
 </script>
@@ -137,7 +152,7 @@ html {
   width: 7.5em;
   margin: 0.125rem -3em;
   min-width: 8.5em;
-  left: -15px!
+  left: -15px!;
 }
 #nav {
   padding: 30px;

@@ -61,27 +61,35 @@
 </template>
 
 <script>
-import router from 'vue-router';
+import router from "vue-router";
 export default {
   name: "Home",
+  props:{
+    auth: Object
+  },
   data: function() {
     return {
       team_name: "My Teams",
       TeamsArray: [],
       currentTeamId: 0,
       searchName: "",
-      hasPlayerId:false,
+      hasPlayerId: false,
       searchResults: [],
-      CurrentPlayerId: 0
+      CurrentPlayerId: 0,
+      user: ""
     };
   },
   mounted: function() {
+    this.auth.getProfile((err, user) => {
+      console.log({ err, user });
+      this.user = user;
+    });
     fetch("https://localhost:5001/api/Teams")
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
-        this.currentTeamId = TeamData[0].id
-        this.team_name = TeamData[0].name
+        this.currentTeamId = TeamData[0].id;
+        this.team_name = TeamData[0].name;
       });
   },
   methods: {
@@ -103,7 +111,9 @@ export default {
     updateCurrentPlayerId: function(player) {
       this.CurrentPlayerId = player.id;
       this.hasPlayerId = true;
-      this.$router.push({ path: `/home/player_attendance_history/${this.CurrentPlayerId}` })
+      this.$router.push({
+        path: `/home/player_attendance_history/${this.CurrentPlayerId}`
+      });
     }
   }
 };

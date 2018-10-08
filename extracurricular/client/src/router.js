@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Callback from './views/Callback.vue'
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
+
   routes: [
     {
       path: '/',
@@ -49,6 +52,11 @@ export default new Router({
       path: '/home/remove_player/',
       name: 'RemovePlayer',
       component: () => import('./views/RemovePlayer.vue'),
+    },
+    {
+      path: '/callback',
+      name: 'callback',
+      component: Callback,
     }
   ],
 });
