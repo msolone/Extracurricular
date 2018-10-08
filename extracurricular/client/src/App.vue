@@ -16,12 +16,13 @@
               <img src='./assets/white_triple_bar2.png' alt='logo'/>
           </button>
           <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
-            <router-link to="/" class="dropdown-item">Log-In</router-link>
+            <router-link to="/" class="dropdown-item">{{user.given_name}} {{user.family_name}}</router-link>
             <router-link to="/home" class="dropdown-item">Home</router-link>
             <router-link to="/home/take_attendance/1" class="dropdown-item">Attendance</router-link>
             <router-link to="/home/team_attendance_history/1" class="dropdown-item">History</router-link>
             <router-link to="/home/player_attendance_history/1" class="dropdown-item">Search</router-link>
-             <router-link to="/home" class="dropdown-item">Change Team</router-link>
+            <router-link to="/home" class="dropdown-item">Change Team</router-link>
+            <div class="dropdown-item" @click="logout()">Log Out</div>
           </div>
         </div>
       </section>
@@ -51,8 +52,17 @@ export default {
     return {
       auth,
       authenticated,
-      footerOff: false
+      footerOff: false,
+      user: {
+        given_name: ''
+      }
     };
+  },
+  mounted: function() {
+    this.auth.getProfile((err, user) => {
+      console.log({ err, user });
+      this.user = user;
+    });
   },
   methods: {
     login,

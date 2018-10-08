@@ -76,7 +76,10 @@ export default {
       hasPlayerId: false,
       searchResults: [],
       CurrentPlayerId: 0,
-      user: ""
+      user: {
+        given_name: '',
+        family_name: ''
+      }
     };
   },
   mounted: function() {
