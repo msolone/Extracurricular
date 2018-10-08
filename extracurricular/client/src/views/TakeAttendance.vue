@@ -7,28 +7,11 @@
             <section class="print_save">
               <!-- Add print feature later 
                 <button>Print</button> -->
-                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance" data-toggle="modal" data-target="#exampleModalCenter"/>
+                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance(); lockSubmit()" data-toggle="modal" data-target="#exampleModalCenter"/>
             </section>
         </section>
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" v-on:blur="lockSubmit">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Message from Extracurricular</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-          <div class="modal-body">
-              Attendance Submitted
-          </div>
-             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             </div>
-            </div>
-          </div>
-        </div>
+
 
      <table class="take_attendance_table">
             <tbody>
@@ -51,6 +34,25 @@
      </table>
 
     </form>
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" v-on:blur="lockSubmit">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Message from Extracurricular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+          <div class="modal-body">
+              Attendance Submitted
+          </div>
+             <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+            </div>
+          </div>
+        </div>
 </section>
 </template>
 
@@ -62,29 +64,33 @@ export default {
     return {
       TeamData: [],
       currentTeamId: this.$route.params.TeamId,
-      isDisabled: false,
-
+      isDisabled: false
     };
   },
   mounted: function() {
     console.log(this.TeamData);
     console.log(this.$route.params.TeamId);
-    fetch(`https://localhost:5001/api/players/${this.$route.params.TeamId}`)
-      .then(resp => resp.json())
-      .then(Data => {
-        console.log(Data);
-        this.TeamData = Data.map(player => {
-          player.status = "present";
-          player.playerId = player.id;
-          player.id = 0;
-          return player;
+      fetch(
+        `https://localhost:5001/api/players/${
+          this.$route.params.TeamId
+        }?d=${moment().format("YYYY-MM-DD")}`
+      )
+        .then(resp => resp.json())
+        .then(Data => {
+          console.log(Data);
+          this.TeamData = Data.map(player => {
+            player.status = player.attendance[0] ? player.attendance[0].status : "present";
+            player.playerId = player.id;
+            player.id = 0;
+            return player;
+          });
         });
-      });
   },
   methods: {
     submitAttendance: function() {
-      fetch(`https://localhost:5001/api/attendance`, {
-        method: "POST",
+      // make if statement that patches the status if it was already there, and post if not
+      fetch(`https://localhost:5001/api/attendance?d=${moment().format("YYYY-MM-DD")}`, {
+        method: "PUT",
         headers: {
           "Content-type": "application/json"
         },
@@ -120,9 +126,8 @@ export default {
       }
     },
     lockSubmit: function() {
-      console.log("working")
       this.isDisabled = true;
-    },
+    }
   }
 };
 </script>
@@ -135,13 +140,12 @@ export default {
 }
 .attendance_entry_buttons {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   margin: 0.3em;
   align-items: center;
 }
 
 .print_save {
-
 }
 .attendance_entry_buttons button,
 input {

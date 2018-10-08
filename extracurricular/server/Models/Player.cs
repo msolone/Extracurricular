@@ -10,6 +10,6 @@ namespace Extracurricular
         public int TeamId { get; set; }
         public Team Team  { get; set; }
 
-        public virtual List<Attendance> Attendance {get;set;} = new List<Attendance>();
+        public virtual IEnumerable<Attendance> Attendance {get;set;} = new List<Attendance>();
     }
 }
