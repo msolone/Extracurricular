@@ -1,25 +1,41 @@
 <template>
-  <div id="app">
-      <Nav />
-      <router-view 
-        :auth="auth" 
-        :authenticated="authenticated">
-      </router-view>
-    <footer class="footer">
-      <p>Created by Michael Solone</p>
-    </footer>
-  </div>
+    <header class="header">
+      <hr>
+      <section class="header_inner">
+        
+          <router-link class="logo" to="/home">
+            <h1>E</h1>
+            <h3>xtracurricular</h3>
+          </router-link>
+        
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle"
+            type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+              <img src='../assets/white_triple_bar2.png' alt='logo'/>
+          </button>
+          <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
+            <div class="dropdown-item">{{user.given_name}} {{user.family_name}}</div>
+            <router-link to="/home" class="dropdown-item">Home</router-link>
+            <router-link to="/home/take_attendance/1" class="dropdown-item">Attendance</router-link>
+            <router-link to="/home/team_attendance_history/1" class="dropdown-item">History</router-link>
+            <router-link to="/home/player_attendance_history/1" class="dropdown-item">Search</router-link>
+            <router-link to="/home" class="dropdown-item">Change Team</router-link>
+            <router-link to="/" class="dropdown-item" @click="logout()">Log Out</router-link>
+          </div>
+        </div>
+      </section>
+      <hr>
+
+    </header>
 </template>
 
 <script>
-import AuthService from "./Auth/AuthServices.js";
-import Nav from "./components/Nav.vue";
+import AuthService from "../Auth/AuthServices.js";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 export default {
-   components: {
-      Nav,
-  },
+  name: "Nav",
   data: function() {
     authNotifier.on("authChange", authState => {
       this.authenticated = authState.authenticated;
@@ -47,19 +63,7 @@ export default {
 };
 </script>
 
-
 <style>
-* {
-  padding: 0;
-  margin: 0;
-}
-body {
-  height: 100%;
-}
-
-html {
-  height: 100%;
-}
 
 #app {
   height: 100%;
@@ -152,19 +156,5 @@ html {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-.footer {
-  margin-top: 0.5em;
-  background: #103072;
-  color: white;
-  font-size: 1em;
-  height: 7.5%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.footer_off {
-  display: none;
-}
 </style>
