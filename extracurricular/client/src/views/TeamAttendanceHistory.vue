@@ -2,9 +2,6 @@
     <section class="team_attendance_history_page">
         <section class="attendance_entry_buttons">
           <form class="time_frame_radios">
-            <!-- <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(7)" checked/><div>Week</div></div>
-            <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(30)" /><div>Month</div></div>
-            <div class="time_frame_div"><input type="radio" class="time_frame_radio" name="team_history_range" v-on:click="changeTimeFrame(365)" /><div>Year</div></div> -->
             <div class="last_month" v-on:click="lastMonth" >▶︎</div> 
             <h3>{{MonthDisplay}}</h3>
             <div v-on:click="nextMonth">▶︎</div> 
@@ -222,11 +219,9 @@ table {
 tbody {
   width: 100%;
 }
-
 thead {
   width: 100%;
   display: flex;
-  /* justify-content: space-around; */
   color: white;
   background: #103072;
   align-items: center;
@@ -245,12 +240,10 @@ thead {
 tr {
   width: 100%;
   display: flex;
-  /* justify-content: space-around; */
 }
 td {
   border: 0.5px solid #545b62;
 }
-
 .name_row {
   width: 30%;
   border: 0.5px solid #545b62;
@@ -266,7 +259,6 @@ td {
   width: 100%;
   padding: 0 0.5em;
 }
-
 .green_color {
   background: #afc9a6;
 }

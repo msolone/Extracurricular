@@ -11,8 +11,6 @@
             </section>
         </section>
 
-
-
      <table class="take_attendance_table">
             <tbody>
                 <tr>
@@ -23,19 +21,20 @@
                 </tr>
          
                 <tr v-for="(player) in TeamData" v-bind:key="player.playerId"
-                :class="{green_color: isPresent(player.status), red_color: isAbsent(player.status), yellow_color: isTardy(player.status)}">
+                :class="{green_color: isPresent(player.status), 
+                        red_color: isAbsent(player.status), 
+                        yellow_color: isTardy(player.status)}">
                     <td class="player_name"><router-link class="link" :to="`/home/player_attendance_history/${player.playerId}`">{{player.firstName + " " + player.lastName}}</router-link></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="present"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="absent"></td>
                     <td><input class="attendance_radio" type="radio" :name="`${player.playerId}`" v-model="player.status" value="tardy"></td>
                 </tr>
-        
             </tbody>
      </table>
 
     </form>
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" v-on:blur="lockSubmit">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -87,7 +86,6 @@ export default {
   },
   methods: {
     submitAttendance: function() {
-      // make if statement that patches the status if it was already there, and post if not
       fetch(`https://localhost:5001/api/attendance?d=${moment().format("YYYY-MM-DD")}`, {
         method: "PUT",
         headers: {
@@ -140,10 +138,6 @@ export default {
   margin: 0.3em;
   align-items: center;
 }
-
-.print_save {
-}
-.attendance_entry_buttons button,
 input {
   padding: 0.2em 1em;
   background: #e0e0e0;

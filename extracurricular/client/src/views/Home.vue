@@ -65,7 +65,8 @@ import router from "vue-router";
 export default {
   name: "Home",
   props:{
-    auth: Object
+    auth: Object,
+    team:Object
   },
   data: function() {
     return {
@@ -83,6 +84,9 @@ export default {
     };
   },
   mounted: function() {
+    console.log("selected team:", this.team)
+    this.currentTeamId = this.team.id
+    this.team_name = this.team.name ? this.team.name : "My Teams";
     this.auth.getProfile((err, user) => {
       console.log({ err, user });
       this.user = user;
@@ -91,14 +95,16 @@ export default {
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
-        this.currentTeamId = TeamData[0].id;
-        this.team_name = TeamData[0].name;
+        // this.currentTeamId = TeamData[0].id;
+        // this.team_name = TeamData[0].name;
       });
   },
   methods: {
     updateTeamName: function(team) {
       this.currentTeamId = team.id;
       this.team_name = team.name;
+      console.log({props :this})
+      this.team.update(team.id, team.name);
     },
     unhidden: function() {
       this.hasPlayerId = false;

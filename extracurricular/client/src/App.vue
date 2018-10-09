@@ -3,7 +3,8 @@
       <Nav />
       <router-view 
         :auth="auth" 
-        :authenticated="authenticated">
+        :authenticated="authenticated" 
+        :team="team">
       </router-view>
     <footer class="footer">
     </footer>
@@ -16,8 +17,8 @@ import Nav from "./components/Nav.vue";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 export default {
-   components: {
-      Nav,
+  components: {
+    Nav
   },
   data: function() {
     authNotifier.on("authChange", authState => {
@@ -27,9 +28,19 @@ export default {
       auth,
       authenticated,
       footerOff: false,
+
+      team: {
+        id: 0,
+        name: '',
+        update: function(teamId, teamName) {
+      console.log({ id: teamId , name: teamName, t: this});
+          this.id = teamId;
+          this.name = teamName
+        }
+      },
       user: {
-        given_name: '',
-        family_name: ''
+        given_name: "",
+        family_name: ""
       }
     };
   },
@@ -41,7 +52,9 @@ export default {
   },
   methods: {
     login,
-    logout
+    logout,
+    
+    
   }
 };
 </script>
