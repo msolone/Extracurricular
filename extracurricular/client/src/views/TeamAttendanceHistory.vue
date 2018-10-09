@@ -70,7 +70,7 @@ export default {
       .reverse();
     console.log(week);
     this.DateHeader = week;
-    fetch(`https://localhost:5001/api/teams/monthly/
+    fetch(`https://extracurricular.herokuapp.com/api/teams/monthly/
     ${this.$route.params.TeamId}
     ?b=${this.MonthStart}
     &e=${this.MonthEnd}`)
@@ -150,7 +150,7 @@ export default {
         )
         .reverse();
       this.DateHeader = week;
-      fetch(`https://localhost:5001/api/teams/monthly/
+      fetch(`https://extracurricular.herokuapp.com/api/teams/monthly/
       ${this.$route.params.TeamId}
       ?b=${this.MonthStart}
       &e=${this.MonthEnd}`)
@@ -182,7 +182,7 @@ export default {
             
         ).reverse();
       this.DateHeader = week;
-        fetch(`https://localhost:5001/api/teams/monthly/
+        fetch(`https://extracurricular.herokuapp.com/api/teams/monthly/
         ${this.$route.params.TeamId}
         ?b=${this.MonthStart}
         &e=${this.MonthEnd}`)

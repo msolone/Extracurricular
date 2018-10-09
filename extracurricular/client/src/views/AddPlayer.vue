@@ -39,7 +39,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch("https://localhost:5001/api/Teams")
+    fetch("https://extracurricular.herokuapp.com/api/Teams")
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -51,7 +51,7 @@ export default {
       this.team_name = team.name;
     },
     submitPlayer: function() {
-      fetch("https://localhost:5001/api/Players", {
+      fetch("https://extracurricular.herokuapp.com/api/Players", {
         method: "POST",
         body: JSON.stringify({
           FirstName: this.firstName,

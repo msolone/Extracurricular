@@ -17,8 +17,8 @@
           <div class="dropdown-menu dropdown-menu-header" aria-labelledby="dropdownMenu1">
             <div class="dropdown-item">{{user.given_name}} {{user.family_name}}</div>
             <router-link to="/home" class="dropdown-item">Home</router-link>
-            <router-link to="/home/take_attendance/1" class="dropdown-item">Attendance</router-link>
-            <router-link to="/home/team_attendance_history/1" class="dropdown-item">History</router-link>
+            <router-link :to="{name:'TakeAttendance', params: {TeamId:this.team.id}}" class="dropdown-item">Attendance</router-link>
+            <router-link :to="{name: 'TeamAttendanceHistory', params: {TeamId:this.team.id}}" class="dropdown-item">History</router-link>
             <router-link to="/home/player_attendance_history/1" class="dropdown-item">Search</router-link>
             <router-link to="/home" class="dropdown-item">Change Team</router-link>
             <router-link to="/" class="dropdown-item" @click="logout()">Log Out</router-link>
@@ -36,6 +36,15 @@ const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 export default {
   name: "Nav",
+  props: {
+    team: Object
+  },
+  watch: {
+    team: function(newVal, oldVal) {
+      // watch it
+      console.log("Prop changed: ", newVal, " | was: ", oldVal);
+    }
+  },
   data: function() {
     authNotifier.on("authChange", authState => {
       this.authenticated = authState.authenticated;
@@ -45,12 +54,14 @@ export default {
       authenticated,
       footerOff: false,
       user: {
-        given_name: '',
-        family_name: ''
-      }
+        given_name: "",
+        family_name: ""
+      },
+      teamId: 0
     };
   },
   mounted: function() {
+    console.log("selected team in nav:", this.team);
     this.auth.getProfile((err, user) => {
       console.log({ err, user });
       this.user = user;
@@ -64,7 +75,6 @@ export default {
 </script>
 
 <style>
-
 #app {
   height: 100%;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -153,5 +163,4 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 </style>

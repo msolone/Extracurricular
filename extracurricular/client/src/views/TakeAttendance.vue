@@ -69,7 +69,7 @@ export default {
     console.log(this.TeamData);
     console.log(this.$route.params.TeamId);
       fetch(
-        `https://localhost:5001/api/players/${
+        `https://extracurricular.herokuapp.com/api/players/${
           this.$route.params.TeamId
         }?d=${moment().format("YYYY-MM-DD")}`
       )
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     submitAttendance: function() {
-      fetch(`https://localhost:5001/api/attendance?d=${moment().format("YYYY-MM-DD")}`, {
+      fetch(`https://extracurricular.herokuapp.com/api/attendance?d=${moment().format("YYYY-MM-DD")}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json"

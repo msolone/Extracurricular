@@ -1,7 +1,13 @@
 <template>
+
   <div class="log_in">
-    <button class="login_button" v-on:click="login" >Log - In</button>
- </div>
+    <div class="title_logo">
+      <h1>Extracurricular</h1>
+      <button class="login_button" v-on:click="login" >Log - In</button>
+    </div>
+      <p>Where time is everything</p>
+  </div>
+
 </template>
 
 <script>
@@ -28,12 +34,20 @@ export default {
 
 <style>
 .log_in {
-  background-image: url("../assets/logo.png");
-  height: 100%;
+  background: #103072;
   background-size: 100%;
-  background-position: bottom;
+  height: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title_logo {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -43,7 +57,27 @@ export default {
   font-weight: bold;
   padding: 1em;
   border-radius: 10%;
-  margin-top: 10em;
+  margin-left: 1em;
+}
+
+h1 {
+  color: white;
+  font-weight: bolder;
+}
+
+p {
+  font-size: 1.2em;
+  color: white;
+  margin: 2em 0 0 0em;
+  font-style: italic;
+
+}
+
+@media (max-width: 760px) {
+  .title_logo {
+
+  flex-direction: column;
+  }
 }
 </style>
 

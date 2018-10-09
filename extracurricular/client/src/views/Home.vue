@@ -91,7 +91,7 @@ export default {
       console.log({ err, user });
       this.user = user;
     });
-    fetch("https://localhost:5001/api/Teams")
+    fetch("https://extracurricular.herokuapp.com/api/Teams")
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -103,14 +103,13 @@ export default {
     updateTeamName: function(team) {
       this.currentTeamId = team.id;
       this.team_name = team.name;
-      console.log({props :this})
       this.team.update(team.id, team.name);
     },
     unhidden: function() {
       this.hasPlayerId = false;
     },
     searchForPlayer: function() {
-      fetch(`https://localhost:5001/api/search?q=${this.searchName}`)
+      fetch(`https://extracurricular.herokuapp.com/api/search?q=${this.searchName}`)
         .then(resp => resp.json())
         .then(Data => {
           console.log(Data);

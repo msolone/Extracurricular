@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     submitTeam: function() {
-      fetch("https://localhost:5001/api/Teams", {
+      fetch("https://extracurricular.herokuapp.com/api/Teams", {
         method: "POST",
         body: JSON.stringify({
           name: this.teamName

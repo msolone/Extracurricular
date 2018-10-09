@@ -86,7 +86,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch("https://localhost:5001/api/Teams")
+    fetch("https://extracurricular.herokuapp.com/api/Teams")
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -97,7 +97,7 @@ export default {
     updateTeamName: function(team) {
       this.currentTeamId = team.id;
       this.team_name = team.name;
-      fetch(`https://localhost:5001/api/players/${this.currentTeamId}`)
+      fetch(`https://extracurricular.herokuapp.com/api/players/${this.currentTeamId}`)
         .then(resp => resp.json())
         .then(Data => {
           this.PlayersArray = Data;
@@ -111,7 +111,7 @@ export default {
       this.isDisabled = false;
     },
     deletePlayer: function() {
-      fetch(`https://localhost:5001/api/Players/${this.currentPlayerId}`, {
+      fetch(`https://extracurricular.herokuapp.com/api/Players/${this.currentPlayerId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Nav />
+      <Nav :team="team"/>
       <router-view 
         :auth="auth" 
         :authenticated="authenticated" 
@@ -33,7 +33,7 @@ export default {
         id: 0,
         name: '',
         update: function(teamId, teamName) {
-      console.log({ id: teamId , name: teamName, t: this});
+      console.log("updating selected team", { id: teamId , name: teamName});
           this.id = teamId;
           this.name = teamName
         }

@@ -23,7 +23,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: "michaelsolone.auth0.com",
     clientID: "UGUByEkhEARxvxFIfnAOnTwc6G2VbWBX",
-    redirectUri: "http://localhost:8080/callback",
+    redirectUri: "http://extracurricular.site/callback",
     responseType: "token id_token",
     scope: "openid profile"
   });
