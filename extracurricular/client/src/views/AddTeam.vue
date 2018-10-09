@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     submitTeam: function() {
-      fetch("https://extracurricular.herokuapp.com/api/Teams", {
+      fetch(`${process.env.VUE_APP_ROOT_API}/Teams`, {
         method: "POST",
         body: JSON.stringify({
           name: this.teamName

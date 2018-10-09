@@ -70,7 +70,7 @@ export default {
       .reverse();
     console.log(week);
     this.DateHeader = week;
-    fetch(`https://extracurricular.herokuapp.com/api/teams/monthly/
+    fetch(`${process.env.VUE_APP_ROOT_API}/teams/monthly/
     ${this.$route.params.TeamId}
     ?b=${this.MonthStart}
     &e=${this.MonthEnd}`)

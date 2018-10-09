@@ -39,7 +39,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch("https://extracurricular.herokuapp.com/api/Teams")
+    fetch(`${process.env.VUE_APP_ROOT_API}Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;

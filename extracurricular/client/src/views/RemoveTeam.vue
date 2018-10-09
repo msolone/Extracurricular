@@ -68,7 +68,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch("https://extracurricular.herokuapp.com/api/Teams")
+    fetch(`${process.env.VUE_APP_ROOT_API}/Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -83,7 +83,7 @@ export default {
       this.isDisabled = false;
     },
     deleteTeam: function() {
-      fetch(`https://extracurricular.herokuapp.com/api/teams/${this.currentTeamId}`, {
+      fetch(`${process.env.VUE_APP_ROOT_API}/teams/${this.currentTeamId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

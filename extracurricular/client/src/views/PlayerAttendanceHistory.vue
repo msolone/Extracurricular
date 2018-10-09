@@ -49,13 +49,13 @@ export default {
       this.CurrentPlayerId = this.$route.params.playerId;
       this.hasPlayerId = true;
 
-      fetch(`https://extracurricular.herokuapp.com/api/players/player/${this.$route.params.playerId}`)
+      fetch(`${process.env.VUE_APP_ROOT_API}/players/player/${this.$route.params.playerId}`)
         .then(resp => resp.json())
         .then(Data => {
           this.PlayerData = Data[0];
         });
       fetch(
-        `https://extracurricular.herokuapp.com/api/attendance/${
+        `${process.env.VUE_APP_ROOT_API}/attendance/${
           this.$route.params.playerId
         }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
       )
@@ -70,7 +70,7 @@ export default {
       return moment(date).format("MM/DD");
     },
     searchForPlayer: function() {
-      fetch(`https://extracurricular.herokuapp.com/api/search?q=${this.searchName}`)
+      fetch(`${process.env.VUE_APP_ROOT_API}/search?q=${this.searchName}`)
         .then(resp => resp.json())
         .then(Data => {
           console.log(Data);
@@ -81,13 +81,13 @@ export default {
       this.CurrentPlayerId = player.id;
       this.hasPlayerId = true;
 
-      fetch(`https://extracurricular.herokuapp.comapi/players/player/${this.CurrentPlayerId}`)
+      fetch(`${process.env.VUE_APP_ROOT_API}/players/player/${this.CurrentPlayerId}`)
         .then(resp => resp.json())
         .then(Data => {
           this.PlayerData = Data[0];
         });
       fetch(
-        `https://extracurricular.herokuapp.com/api/attendance/${
+        `${process.env.VUE_APP_ROOT_API}/attendance/${
           this.CurrentPlayerId
         }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
       )
@@ -106,7 +106,7 @@ export default {
         .subtract(t, "days")
         .calendar();
       fetch(
-        `https://extracurricular.herokuapp.com/api/attendance/${
+        `${process.env.VUE_APP_ROOT_API}/attendance/${
           this.CurrentPlayerId
         }?d=${moment(this.TimeFrame).format("YYYY-MM-DD")}`
       )

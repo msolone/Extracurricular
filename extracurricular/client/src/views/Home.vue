@@ -91,7 +91,7 @@ export default {
       console.log({ err, user });
       this.user = user;
     });
-    fetch("https://extracurricular.herokuapp.com/api/Teams")
+    fetch(`${process.env.VUE_APP_ROOT_API}/Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -109,7 +109,7 @@ export default {
       this.hasPlayerId = false;
     },
     searchForPlayer: function() {
-      fetch(`https://extracurricular.herokuapp.com/api/search?q=${this.searchName}`)
+      fetch(`${process.env.VUE_APP_ROOT_API}/search?q=${this.searchName}`)
         .then(resp => resp.json())
         .then(Data => {
           console.log(Data);

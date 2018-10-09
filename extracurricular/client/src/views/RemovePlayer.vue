@@ -86,7 +86,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch("https://extracurricular.herokuapp.com/api/Teams")
+    fetch(`${process.env.VUE_APP_ROOT_API}/Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -97,7 +97,7 @@ export default {
     updateTeamName: function(team) {
       this.currentTeamId = team.id;
       this.team_name = team.name;
-      fetch(`https://extracurricular.herokuapp.com/api/players/${this.currentTeamId}`)
+      fetch(`${process.env.VUE_APP_ROOT_API}/players/${this.currentTeamId}`)
         .then(resp => resp.json())
         .then(Data => {
           this.PlayersArray = Data;
@@ -111,7 +111,7 @@ export default {
       this.isDisabled = false;
     },
     deletePlayer: function() {
-      fetch(`https://extracurricular.herokuapp.com/api/Players/${this.currentPlayerId}`, {
+      fetch(`${process.env.VUE_APP_ROOT_API}/Players/${this.currentPlayerId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
