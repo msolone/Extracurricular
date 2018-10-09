@@ -39,7 +39,7 @@ export default {
     };
   },
   mounted: function() {
-    fetch(`${process.env.VUE_APP_ROOT_API}Teams`)
+    fetch(`${process.env.VUE_APP_ROOT_API}/Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
@@ -51,7 +51,7 @@ export default {
       this.team_name = team.name;
     },
     submitPlayer: function() {
-      fetch("https://extracurricular.herokuapp.com/api/Players", {
+      fetch(`${process.env.VUE_APP_ROOT_API}/Players`, {
         method: "POST",
         body: JSON.stringify({
           FirstName: this.firstName,
