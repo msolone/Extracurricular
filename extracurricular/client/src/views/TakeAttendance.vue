@@ -7,7 +7,7 @@
             <section class="print_save">
               <!-- Add print feature later 
                 <button>Print</button> -->
-                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance()" data-toggle="modal" data-target="#exampleModalCenter"/>
+                <input type="submit" value="Save" v-on:click.prevent="submitAttendance()" data-toggle="modal" data-target="#exampleModalCenter"/>
             </section>
         </section>
 
@@ -64,7 +64,6 @@ export default {
     return {
       TeamData: [],
       currentTeamId: this.$route.params.TeamId,
-      isDisabled: false
     };
   },
   mounted: function() {
@@ -124,10 +123,10 @@ export default {
       } else {
         return false;
       }
-    },
-    lockSubmit: function() {
-      this.isDisabled = true;
     }
+    // lockSubmit: function() {
+    //   this.isDisabled = true;
+    // }
   }
 };
 </script>
