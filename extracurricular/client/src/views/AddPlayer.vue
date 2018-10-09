@@ -20,27 +20,8 @@
         <form class="add_player_form" action="">
             <input class="add_player_input" type="text" name="first_name" placeholder="First Name" v-model="firstName"/>
             <input class="add_player_input" type="text" name="last_name" placeholder="Last Name" v-model="lastName"/>
-            <button class="add_player_button" type="submit" v-on:click.prevent="submitPlayer" data-toggle="modal" data-target="#exampleModalCenter">Submit</button>
+            <button class="add_player_button" type="submit" v-on:click.prevent="submitPlayer">Submit</button>
         </form>
-
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Message from Extracurricular</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-          <div class="modal-body">
-              Player Added
-          </div>
-             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             </div>
-            </div>
-          </div>
-        </div>
 
     </section>
 </template>
@@ -53,22 +34,21 @@ export default {
       team_name: "Select Team",
       TeamsArray: [],
       currentTeamId: 0,
-      firstName: '',
-      lastName: '' 
+      firstName: "",
+      lastName: ""
     };
   },
   mounted: function() {
     fetch("https://localhost:5001/api/Teams")
-    .then(resp => resp.json())
-    .then(TeamData => {
-      this.TeamsArray = TeamData
-    })
-
+      .then(resp => resp.json())
+      .then(TeamData => {
+        this.TeamsArray = TeamData;
+      });
   },
   methods: {
     updateTeamName: function(team) {
-      this.currentTeamId = team.id
-      this.team_name = team.name
+      this.currentTeamId = team.id;
+      this.team_name = team.name;
     },
     submitPlayer: function() {
       fetch("https://localhost:5001/api/Players", {
@@ -85,7 +65,12 @@ export default {
         .then(resp => resp.json())
         .then(PlayerData => {
           console.log(PlayerData);
+          this.resetForm();
         });
+    },
+    resetForm: function() {
+      this.firstName = "";
+      this.lastName = "";
     }
   }
 };

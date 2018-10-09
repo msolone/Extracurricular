@@ -7,7 +7,7 @@
             <section class="print_save">
               <!-- Add print feature later 
                 <button>Print</button> -->
-                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance(); lockSubmit()" data-toggle="modal" data-target="#exampleModalCenter"/>
+                <input type="submit" value="Save" :disabled="isDisabled" v-on:click.prevent="submitAttendance()" data-toggle="modal" data-target="#exampleModalCenter"/>
             </section>
         </section>
 

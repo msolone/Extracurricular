@@ -6,7 +6,6 @@
         :authenticated="authenticated">
       </router-view>
     <footer class="footer">
-      <p>Created by Michael Solone</p>
     </footer>
   </div>
 </template>
