@@ -12,17 +12,29 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace server {
     public class Startup {
         public Startup (IConfiguration configuration) {
             Configuration = configuration;
+            new Extracurricular_DatabaseContext().Database.Migrate();
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
+
+            var conn = Environment.GetEnvironmentVariable ("CONNECTION_STRING") ?? "server=localhost;database=Extracurricular_Database";
+
+            services
+                .AddEntityFrameworkNpgsql()
+                .AddDbContext<Extracurricular_DatabaseContext>(opt =>
+                    opt.UseNpgsql(conn));
+
+                    
             services.AddMvc ().AddJsonOptions (options => {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver ();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

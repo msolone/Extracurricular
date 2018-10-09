@@ -1,0 +1,5 @@
+postgres://zkgbvvbayicozg:0c5f9e2021984296ab08a936934bfd6885aee0f80f1203eaab63a8f725a81777@ec2-23-21-147-71.compute-1.amazonaws.com:5432/d6ql8545kebhoe
+
+postgres://<User Id>:<Password>@<server>:<port>/<database>
+
+server=ec2-23-21-147-71.compute-1.amazonaws.com;port=5432;database=d6ql8545kebhoe;User Id=zkgbvvbayicozg;Password=0c5f9e2021984296ab08a936934bfd6885aee0f80f1203eaab63a8f725a81777;

@@ -1,0 +1,14 @@
+dotnet publish -c Release
+
+cp dockerfile ./bin/release/netcoreapp2.1/publish
+
+docker build -t extracurricular-image ./bin/release/netcoreapp2.1/publish
+
+docker tag extracurricular-image registry.heroku.com/extracurricular/web
+
+docker push registry.heroku.com/extracurricular/web
+
+heroku container:release web -a extracurricular
+
+# sudo chmod 755 deploy.sh
+# ./deploy.sh

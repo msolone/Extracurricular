@@ -1,0 +1,14 @@
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/bin/Release/netcoreapp2.1/server.deps.json
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/bin/Release/netcoreapp2.1/server.runtimeconfig.json
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/bin/Release/netcoreapp2.1/server.runtimeconfig.dev.json
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/bin/Release/netcoreapp2.1/server.dll
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/bin/Release/netcoreapp2.1/server.pdb
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.csprojAssemblyReference.cache
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.csproj.CoreCompileInputs.cache
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.RazorAssemblyInfo.cache
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.RazorAssemblyInfo.cs
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.AssemblyInfoInputs.cache
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.AssemblyInfo.cs
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.RazorTargetAssemblyInfo.cache
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.dll
+/Users/michaelsolone/sdg/capstone_project/extracurricular/server/obj/Release/netcoreapp2.1/server.pdb

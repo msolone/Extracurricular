@@ -20,8 +20,8 @@ namespace server
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("server=localhost;database=Extracurricular_Database");
+                var conn = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "server=localhost;database=Extracurricular_Database";
+                optionsBuilder.UseNpgsql(conn);
             }
         }
 
