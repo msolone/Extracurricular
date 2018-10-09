@@ -85,9 +85,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 0.5em;
-  /* position: fixed;
-  top: 0;
-  width: 100%; */
 }
 .header_inner {
   display: flex;

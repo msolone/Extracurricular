@@ -124,9 +124,6 @@ export default {
         return false;
       }
     }
-    // lockSubmit: function() {
-    //   this.isDisabled = true;
-    // }
   }
 };
 </script>
