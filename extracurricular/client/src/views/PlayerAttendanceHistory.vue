@@ -158,18 +158,16 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   padding: 0.5em 0;
-  margin-top: 1em;
+  /* margin-top: em; */
 }
 .top_display {
-  /* height: 35%; */
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   align-items: center;
+  margin-top: 3em;
 }
 .player_search_bar {
   display: flex;
@@ -231,6 +229,7 @@ input[type="radio"] {
   font-size: 0.8em;
   height: 18%;
   font-weight: bold;
+  min-height: 1.5em;
 }
 .calendar_status {
   border: 0.5px solid white;

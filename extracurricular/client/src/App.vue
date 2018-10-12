@@ -93,9 +93,8 @@ html {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 0.5em;
-  /* position: fixed;
-  top: 0;
-  width: 100%; */
+  min-height: 3.5em;
+
 }
 .header_inner {
   display: flex;

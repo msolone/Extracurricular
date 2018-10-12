@@ -64,9 +64,9 @@
 import router from "vue-router";
 export default {
   name: "Home",
-  props:{
+  props: {
     auth: Object,
-    team:Object
+    team: Object
   },
   data: function() {
     return {
@@ -78,14 +78,14 @@ export default {
       searchResults: [],
       CurrentPlayerId: 0,
       user: {
-        given_name: '',
-        family_name: ''
+        given_name: "",
+        family_name: ""
       }
     };
   },
   mounted: function() {
-    console.log("selected team:", this.team)
-    this.currentTeamId = this.team.id
+    console.log("selected team:", this.team);
+    this.currentTeamId = this.team.id;
     this.team_name = this.team.name ? this.team.name : "My Teams";
     this.auth.getProfile((err, user) => {
       console.log({ err, user });
@@ -135,6 +135,8 @@ export default {
   justify-content: space-around;
   border: 3px solid #103072;
   border-radius: 0.5em;
+  overflow: auto;
+  min-height: 500px;
 }
 button {
   border: 3px solid #103072;

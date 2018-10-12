@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build  && cp dist/index.html dist/200.html",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "yarn build; surge dist --domain extracurricular.site"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",

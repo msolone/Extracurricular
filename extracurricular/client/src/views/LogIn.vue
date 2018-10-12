@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .log_in {
   background: #103072;
   background-size: 100%;
