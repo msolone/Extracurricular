@@ -84,19 +84,15 @@ export default {
     };
   },
   mounted: function() {
-    console.log("selected team:", this.team);
     this.currentTeamId = this.team.id;
     this.team_name = this.team.name ? this.team.name : "My Teams";
     this.auth.getProfile((err, user) => {
-      console.log({ err, user });
       this.user = user;
     });
     fetch(`${process.env.VUE_APP_ROOT_API}/Teams`)
       .then(resp => resp.json())
       .then(TeamData => {
         this.TeamsArray = TeamData;
-        // this.currentTeamId = TeamData[0].id;
-        // this.team_name = TeamData[0].name;
       });
   },
   methods: {
