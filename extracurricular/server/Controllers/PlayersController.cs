@@ -24,8 +24,9 @@ namespace server.Controllers {
 
             if (d.HasValue) {
                 var history = this.db.Players
-                    // Inner Join: FROM Players JOIN ON Attendance WHERE (TeamId = id)
+                    // Inner Join: SELECT * FROM Players JOIN ON Attendance 
                     .Include (i => i.Attendance)
+                    // WHERE (TeamId = id)
                     .Where (w => w.TeamId == id)
                     .OrderBy (o => o.LastName)
                     // Create new object array that includes player info and attendance info

@@ -27,7 +27,7 @@ namespace server.Controllers {
         [HttpGet ("history/{TeamId}")]
         public ActionResult GetTeamHistory (int TeamId, [FromQuery] DateTime d) {
             var history = this.db.Players
-                // Inner Join: FROM Players JOIN ON Attendance
+                // Inner Join: SELECT * FROM Players JOIN ON Attendance
                 .Include (i => i.Attendance)  
                  // WHERE (TeamId = id)
                 .Where (w => w.TeamId == TeamId)
@@ -47,7 +47,7 @@ namespace server.Controllers {
         [HttpGet ("monthly/{TeamId}")]
         public ActionResult GetTeamHistory (int TeamId, [FromQuery] DateTime b, [FromQuery] DateTime e) {
             var history = this.db.Players
-                // Inner Join: FROM Players JOIN ON Attendance
+                // Inner Join: SELECT * FROM Players JOIN ON Attendance
                 .Include (i => i.Attendance)
                  // WHERE (TeamId = id)
                 .Where (w => w.TeamId == TeamId)
